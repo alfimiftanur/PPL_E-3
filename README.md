@@ -13,6 +13,9 @@ Satu operasi: `GET /api/v1/e3/projects/{projectId}/execution-readiness` (API-K-E
 - `examples/error.json`: HTTP 404, `PROJECT_NOT_FOUND`.
 - `server.js`: server contoh (Node.js, Express) yang memvalidasi request dan respons terhadap `openapi.yaml`.
 - `test.js`: tes yang membandingkan respons server dengan berkas di `examples/`.
+- `data/seed.json`: data seed fiktif (proyek, kickoff, MoM) yang dibaca server.
+- `.env.example`: konfigurasi contoh (`PORT`, `MOCK_TOKEN`). Salin menjadi `.env` bila perlu.
+- `.github/workflows/ci.yml`: CI GitHub Actions (lint OpenAPI dan `npm test`).
 - `bukti-mock.md`: hasil menjalankan mock Prism (200, 404, 401).
 
 ## Menjalankan
@@ -37,5 +40,5 @@ Spesifikasi juga dapat dibuka di https://editor.swagger.io.
 
 ## Catatan
 - ID, path, dan autentikasi masih usulan E-3, belum dikonfirmasi F-1, D-1, dan E-4.
-- Server contoh memakai data di memori. Daftar proyek (pengganti D-1) dan token (pengganti F-1) adalah mock. Belum ada database dan belum terintegrasi dengan kelompok lain.
+- Server contoh memakai data seed di `data/seed.json` yang dimuat ke memori. Daftar proyek (pengganti D-1) dan token (pengganti F-1) adalah mock. Belum ada database dan belum terintegrasi dengan kelompok lain.
 - Kode 403, 422, dan 503 ada di spesifikasi tetapi belum diuji pada server.
