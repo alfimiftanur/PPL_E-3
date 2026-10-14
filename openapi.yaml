@@ -1,0 +1,166 @@
+openapi: 3.0.3
+info:
+  title: E-3 Execution Readiness API
+  version: 0.1.0
+  description: >
+    Kontrak API kelompok E-3 (Analisis, Baseline, dan Perencanaan Proyek), ERP PT. Anaheim Nimbus Universal.
+    Satu operasi untuk konsumen E-4: membaca kesiapan eksekusi suatu proyek dari status MoM kickoff.
+    Semua ID, path, dan format masih usulan E-3 sampai dikonfirmasi pemilik layanan (lihat dokumen 04).
+    Seluruh contoh adalah data fiktif.
+  contact:
+    name: Kelompok E-3
+servers:
+  - url: http://localhost:4010
+    description: Mock lokal (contoh Prism). Alamat layanan sungguhan belum ada.
+tags:
+  - name: execution-readiness
+    description: Kesiapan eksekusi proyek (FTR-K-E3-10)
+paths:
+  /api/v1/e3/projects/{projectId}/execution-readiness:
+    get:
+      operationId: getExecutionReadiness
+      tags: [execution-readiness]
+      summary: Baca kesiapan eksekusi proyek (API-K-E3-01)
+      description: >
+        Mengembalikan status MoM kickoff aktif proyek dan penanda readyForExecution.
+        readyForExecution bernilai true hanya bila status MoM adalah "selesai".
+        Bila kickoff atau MoM belum ada, respons tetap 200 dengan readyForExecution false dan field terkait null.
+        Operasi hanya membaca dan tidak mengubah status proyek D-1.
+        Nama peserta, lampiran MoM, bukti persetujuan, dan token tidak pernah dikirim.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          description: ID proyek kanonis milik D-1 (string). E-3 tidak membentuk ulang ID ini.
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 64
+          example: PRJ-DEMO-001
+      responses:
+        '200':
+          description: Proyek dikenal.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionReadiness'
+              examples:
+                siap:
+                  summary: MoM selesai (examples/success.json)
+                  value:
+                    projectId: PRJ-DEMO-001
+                    kickoffId: '101'
+                    momId: '201'
+                    status: selesai
+                    completedAt: '2026-10-30T04:00:00Z'
+                    readyForExecution: true
+                belumSiap:
+                  summary: MoM belum selesai (examples/success-not-ready.json)
+                  value:
+                    projectId: PRJ-DEMO-001
+                    kickoffId: '101'
+                    momId: '201'
+                    status: belum_selesai
+                    completedAt: null
+                    readyForExecution: false
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/InvalidRequest'
+        '503':
+          $ref: '#/components/responses/DependencyUnavailable'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >
+        Usulan: Bearer token layanan E-4 yang divalidasi F-1. Mekanisme final perlu dikonfirmasi F-1.
+        Contoh token mock saja, bukan kredensial riil.
+  schemas:
+    ExecutionReadiness:
+      type: object
+      required: [projectId, kickoffId, momId, status, completedAt, readyForExecution]
+      properties:
+        projectId:
+          type: string
+          description: ID proyek kanonis D-1, sama dengan path.
+          example: PRJ-DEMO-001
+        kickoffId:
+          type: string
+          nullable: true
+          pattern: '^[0-9]+$'
+          description: ID kickoff E-3 (ENT-K-E3-07), string angka. Null bila kickoff belum ada.
+          example: '101'
+        momId:
+          type: string
+          nullable: true
+          pattern: '^[0-9]+$'
+          description: ID MoM kickoff E-3 (ENT-K-E3-08), string angka. Null bila belum ada MoM.
+          example: '201'
+        status:
+          type: string
+          nullable: true
+          enum: [belum_selesai, selesai, null]
+          description: Status MoM kickoff. Null bila belum ada MoM.
+          example: selesai
+        completedAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: Waktu MoM selesai, ISO 8601 UTC (Z). Terisi hanya bila status selesai.
+          example: '2026-10-30T04:00:00Z'
+        readyForExecution:
+          type: boolean
+          description: true hanya bila status adalah selesai. Selain itu false.
+          example: true
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: string
+          enum: [UNAUTHENTICATED, FORBIDDEN, PROJECT_NOT_FOUND, INVALID_REQUEST, DEPENDENCY_UNAVAILABLE]
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
+  responses:
+    Unauthenticated:
+      description: Token tidak ada atau tidak valid.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+          example: {code: UNAUTHENTICATED, message: Token tidak ada atau tidak valid.}
+    Forbidden:
+      description: Layanan pemanggil tidak berizin pada proyek ini.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+          example: {code: FORBIDDEN, message: Layanan tidak berizin pada proyek ini.}
+    NotFound:
+      description: ID proyek tidak dikenal.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+          example: {code: PROJECT_NOT_FOUND, message: Proyek tidak ditemukan.}
+    InvalidRequest:
+      description: Format request salah.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+          example: {code: INVALID_REQUEST, message: Format projectId tidak valid., details: [projectId tidak boleh kosong]}
+    DependencyUnavailable:
+      description: Validasi ke F-1 atau D-1 gagal. E-4 tidak boleh menganggapnya sebagai izin eksekusi.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+          example: {code: DEPENDENCY_UNAVAILABLE, message: Validasi dependensi gagal. Coba lagi.}
