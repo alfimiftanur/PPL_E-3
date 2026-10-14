@@ -1,0 +1,5 @@
+{
+  "knownProjects": ["PRJ-DEMO-001", "PRJ-DEMO-002"],
+  "kickoffs": [{ "id": 101, "projectId": "PRJ-DEMO-001" }],
+  "moms": [{ "id": 201, "kickoffId": 101, "status": "selesai", "completedAt": "2026-10-30T04:00:00Z" }]
+}
