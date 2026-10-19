@@ -1,44 +1,48 @@
-# Kontrak API E-3 (Analisis, Baseline, dan Perencanaan Proyek)
+# API E-3 (Laravel) - Kontrak Pertemuan 3
 
-Kelompok 3 / E, ERP PT. Anaheim Nimbus Universal. Penyusun: Aufa Ramadhan, reviewer internal: Alfi Mifta Nurhakim.
-Versi 0.1.0, seluruh data fiktif.
+Kelompok E-3, capstone ERP PT. Anaheim Nimbus Universal. Kontrak ada di `openapi.yaml` (OpenAPI 3.0.3, v0.3.0).
+Implementasi contoh memakai Laravel 13 (PHP 8.3) tanpa database: data diambil dari `data/seed.json`. Seluruh data fiktif.
 
-Satu operasi: `GET /api/v1/e3/projects/{projectId}/execution-readiness` (API-K-E3-01, FTR-K-E3-10), dibaca E-4 untuk mengetahui apakah proyek siap dieksekusi (status MoM kickoff selesai).
+## Operasi
 
-## Isi
-- `openapi.yaml`: spesifikasi OpenAPI 3.0.3 (sumber kebenaran kontrak).
-- `examples/success.json`: HTTP 200, MoM selesai, `readyForExecution: true`.
-- `examples/success-not-ready.json`: HTTP 200, MoM belum selesai, `readyForExecution: false`.
-- `examples/success-no-mom.json`: HTTP 200, kickoff dan MoM belum ada, field terkait null.
-- `examples/error.json`: HTTP 404, `PROJECT_NOT_FOUND`.
-- `server.js`: server contoh (Node.js, Express) yang memvalidasi request dan respons terhadap `openapi.yaml`.
-- `test.js`: tes yang membandingkan respons server dengan berkas di `examples/`.
-- `data/seed.json`: data seed fiktif (proyek, kickoff, MoM) yang dibaca server.
-- `.env.example`: konfigurasi contoh (`PORT`, `MOCK_TOKEN`). Salin menjadi `.env` bila perlu.
-- `.github/workflows/ci.yml`: CI GitHub Actions (lint OpenAPI dan `npm test`).
-- `bukti-mock.md`: hasil menjalankan mock Prism (200, 404, 401).
+- `GET /api/v1/projects/{projectId}/execution-readiness` (API-K-E3-01, FTR-K-E3-10), dibaca E-4: apakah proyek siap dieksekusi (status MoM kickoff `COMPLETED`).
+- `GET /api/v1/projects/{projectId}/planning-references` (API-K-E3-02, FTR-K-E3-04 dan FTR-K-E3-05), usulan untuk E-5 dan D-3: ID baseline `APPROVED` terbaru dan ID project plan. Kebutuhan konsumen belum dikonfirmasi.
+
+Awalan `/api` ditambahkan Laravel pada `routes/api.php`. Autentikasi memakai `Authorization: Bearer <MOCK_TOKEN>` (pengganti sementara token F-1, lihat OPEN-02 pada dokumen kontrak).
+
+## Berkas
+
+- `openapi.yaml`: kontrak. Nilai status: MoM `IN_PROGRESS`/`COMPLETED`, baseline `DRAFT`/`APPROVED`.
+- `examples/`: contoh respons; dipakai tes dan dirujuk `openapi.yaml`.
+- `routes/api.php`, `app/Http/Controllers/`, `app/Http/Middleware/MockBearerToken.php`, `app/Services/ProjectData.php`: implementasi.
+- `tests/Feature/ApiContractTest.php`: 10 tes, respons harus sama dengan `examples/`.
+- `bukti-mock.md`: hasil permintaan ke mock Prism.
 
 ## Menjalankan
-Butuh Node.js 18 atau lebih baru.
 
 ```
-npm install
-npm start      # server contoh di http://localhost:3000
-npm test       # 4 tes: 200, 200 tanpa MoM, 404, 401
-npm run mock   # alternatif: mock Prism dari openapi.yaml di http://localhost:4010
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan serve
 ```
 
-Contoh request (token mock):
+```
+curl -H "Authorization: Bearer mock-token" http://localhost:8000/api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a1234567/execution-readiness
+curl -H "Authorization: Bearer mock-token" http://localhost:8000/api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a1234567/planning-references
+```
+
+Proyek contoh: `01924b1e-7f32-7a81-9b12-45e8a1234567` (MoM `COMPLETED`) dan `01924b1e-7f32-7a81-9b12-45e8a1234568` (belum ada kickoff, baseline masih `DRAFT`). UUID v7 lain mengembalikan 404; nilai yang bukan UUID v7 mengembalikan 400.
+
+## Tes, lint, dan mock
 
 ```
-curl -H "Authorization: Bearer mock-token" http://localhost:3000/api/v1/e3/projects/PRJ-DEMO-001/execution-readiness
+php artisan test
+npx @redocly/cli lint openapi.yaml
+npx @stoplight/prism-cli mock openapi.yaml -p 4010
 ```
-
-Proyek contoh: `PRJ-DEMO-001` (MoM selesai) dan `PRJ-DEMO-002` (belum ada kickoff). ID lain mengembalikan 404.
-
-Spesifikasi juga dapat dibuka di https://editor.swagger.io.
 
 ## Catatan
-- ID, path, dan autentikasi masih usulan E-3, belum dikonfirmasi F-1, D-1, dan E-4.
-- Server contoh memakai data seed di `data/seed.json` yang dimuat ke memori. Daftar proyek (pengganti D-1) dan token (pengganti F-1) adalah mock. Belum ada database dan belum terintegrasi dengan kelompok lain.
-- Kode 403, 422, dan 503 ada di spesifikasi tetapi belum diuji pada server.
+
+- Kode 403 dan 503 ada di spesifikasi tetapi belum diimplementasikan.
+- `ProjectData` membaca JSON; pada implementasi sungguhan diganti query ke tabel E-3 (lihat dokumen Skema Data Awal).
