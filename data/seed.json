@@ -1,5 +1,43 @@
 {
-  "knownProjects": ["PRJ-DEMO-001", "PRJ-DEMO-002"],
-  "kickoffs": [{ "id": 101, "projectId": "PRJ-DEMO-001" }],
-  "moms": [{ "id": 201, "kickoffId": 101, "status": "selesai", "completedAt": "2026-10-30T04:00:00Z" }]
+  "knownProjects": [
+    "01924b1e-7f32-7a81-9b12-45e8a1234567",
+    "01924b1e-7f32-7a81-9b12-45e8a1234568"
+  ],
+  "kickoffs": [
+    {
+      "id": 101,
+      "projectId": "01924b1e-7f32-7a81-9b12-45e8a1234567"
+    }
+  ],
+  "moms": [
+    {
+      "id": 201,
+      "kickoffId": 101,
+      "status": "COMPLETED",
+      "completedAt": "2026-10-16T11:00:00+07:00"
+    }
+  ],
+  "baselines": [
+    {
+      "id": 300,
+      "projectId": "01924b1e-7f32-7a81-9b12-45e8a1234568",
+      "version": 1,
+      "status": "DRAFT",
+      "approvedAt": null
+    },
+    {
+      "id": 301,
+      "projectId": "01924b1e-7f32-7a81-9b12-45e8a1234567",
+      "version": 1,
+      "status": "APPROVED",
+      "approvedAt": "2026-10-14T10:00:00+07:00"
+    }
+  ],
+  "plans": [
+    {
+      "id": 401,
+      "projectId": "01924b1e-7f32-7a81-9b12-45e8a1234567",
+      "baselineId": 301
+    }
+  ]
 }
