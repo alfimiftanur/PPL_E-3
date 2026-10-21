@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: E-3 Execution Readiness API
-  version: 0.3.0
+  version: 0.2.0
   description: >
     Kontrak API kelompok E-3 (Analisis, Baseline, dan Perencanaan Proyek), ERP PT. Anaheim Nimbus Universal.
     Operasi untuk konsumen E-4 (API-K-E3-01): membaca kesiapan eksekusi proyek dari status MoM kickoff. Operasi untuk E-5 dan D-3 (API-K-E3-02): membaca ID baseline yang disetujui dan ID project plan, kebutuhan konsumen masih perlu dikonfirmasi.

@@ -1,7 +1,7 @@
 # API E-3 (Laravel) - Kontrak Pertemuan 3
 
-Kelompok E-3, capstone ERP PT. Anaheim Nimbus Universal. Kontrak ada di `openapi.yaml` (OpenAPI 3.0.3, v0.3.0).
-Implementasi contoh memakai Laravel 13 (PHP 8.3) tanpa database: data diambil dari `data/seed.json`. Seluruh data fiktif.
+Kelompok E-3, capstone ERP PT. Anaheim Nimbus Universal. Kontrak ada di `openapi.yaml` (OpenAPI 3.0.3, v0.2.0).
+Implementasi contoh memakai Laravel 13 (PHP 8.4) tanpa database: data diambil dari `data/seed.json` dan `data/ui_seed.json`. Seluruh data fiktif.
 
 ## Operasi
 
@@ -24,6 +24,8 @@ Awalan `/api` ditambahkan Laravel pada `routes/api.php`. Autentikasi memakai `Au
 composer install
 cp .env.example .env
 php artisan key:generate
+npm install
+npm run build
 php artisan serve
 ```
 

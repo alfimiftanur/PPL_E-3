@@ -1,8 +1,9 @@
 name: CI
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
   pull_request:
+  workflow_dispatch:
 jobs:
   lint-openapi:
     runs-on: ubuntu-latest
@@ -19,10 +20,16 @@ jobs:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: '8.4'
           extensions: mbstring, sqlite3, pdo_sqlite
           coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
       - run: composer install --no-interaction --prefer-dist
+      - name: Build tampilan (Vite)
+        run: npm ci && npm run build
       - run: cp .env.example .env && php artisan key:generate
-      - name: Tes kontrak (respons sama dengan examples/)
+      - name: Tes kontrak dan alur tampilan
         run: php artisan test
