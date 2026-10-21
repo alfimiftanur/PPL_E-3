@@ -10,18 +10,18 @@
                     <path d="m9 12 2 2 4-4"/>
                 </svg>
             </div>
-            <h1 class="text-[25px] font-display font-extrabold text-nimbus-ink tracking-tight">
+            <h1 class="text-[20px] sm:text-[23px] lg:text-[25px] font-display font-extrabold text-nimbus-ink tracking-tight">
                 Penyusunan Baseline Proyek
             </h1>
         </div>
-        <p class="text-[13.5px] text-nimbus-slate leading-relaxed mt-1.5">
+        <p class="text-[13px] sm:text-[13.5px] text-nimbus-slate leading-relaxed mt-1.5">
             Perumusan baseline terpadu ruang lingkup (Scope), artefak serah terima (Deliverable), dan linimasa eksekusi (Timeline) sebelum penguncian formal.
         </p>
     </div>
 
     <!-- TOP BASELINE METADATA CARD -->
-    <section class="bg-white border border-nimbus-border rounded-xl px-6 py-5 mt-6 shadow-card">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+    <section class="bg-white border border-nimbus-border rounded-xl px-4 sm:px-6 py-4 sm:py-5 mt-5 sm:mt-6 shadow-card">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
             <!-- 1. Baseline Version -->
             <div>
                 <div class="text-[10.5px] font-bold tracking-wider text-nimbus-muted uppercase">VERSI BASELINE</div>
@@ -78,10 +78,10 @@
     @endphp
 
     <!-- BASELINE MATRICES TAB CARD -->
-    <section class="bg-white border border-nimbus-border rounded-xl mt-6 shadow-card overflow-hidden">
+    <section class="bg-white border border-nimbus-border rounded-xl mt-5 sm:mt-6 shadow-card overflow-hidden">
         <!-- Tab Navigation Bar -->
-        <div class="px-6 pt-3 border-b border-nimbus-border flex items-center gap-7">
-            <button type="button" data-tab="scope" class="matrix-tab-btn pb-3 border-b-2 border-nimbus-primary text-nimbus-primary font-display font-bold text-[13px] flex items-center gap-2 transition-colors">
+        <div class="px-4 sm:px-6 pt-3 border-b border-nimbus-border flex items-center gap-4 sm:gap-7 overflow-x-auto no-scrollbar">
+            <button type="button" data-tab="scope" class="matrix-tab-btn pb-3 border-b-2 border-nimbus-primary text-nimbus-primary font-display font-bold text-[12.5px] sm:text-[13px] flex items-center gap-2 whitespace-nowrap shrink-0 transition-colors">
                 <span>1. Scope Matrix</span>
                 <span id="countBadgeScope" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#d1fae5] text-[#047857] text-[10.5px] font-bold">
                     <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -89,7 +89,7 @@
                 </span>
             </button>
 
-            <button type="button" data-tab="deliverable" class="matrix-tab-btn pb-3 border-b-2 border-transparent text-nimbus-slate hover:text-nimbus-ink font-display font-semibold text-[13px] flex items-center gap-2 transition-colors">
+            <button type="button" data-tab="deliverable" class="matrix-tab-btn pb-3 border-b-2 border-transparent text-nimbus-slate hover:text-nimbus-ink font-display font-semibold text-[12.5px] sm:text-[13px] flex items-center gap-2 whitespace-nowrap shrink-0 transition-colors">
                 <span>2. Deliverable Matrix</span>
                 <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#d1fae5] text-[#047857] text-[10.5px] font-bold">
                     <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -97,7 +97,7 @@
                 </span>
             </button>
 
-            <button type="button" data-tab="timeline" class="matrix-tab-btn pb-3 border-b-2 border-transparent text-nimbus-slate hover:text-nimbus-ink font-display font-semibold text-[13px] flex items-center gap-2 transition-colors">
+            <button type="button" data-tab="timeline" class="matrix-tab-btn pb-3 border-b-2 border-transparent text-nimbus-slate hover:text-nimbus-ink font-display font-semibold text-[12.5px] sm:text-[13px] flex items-center gap-2 whitespace-nowrap shrink-0 transition-colors">
                 <span>3. Timeline Matrix</span>
                 <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#d1fae5] text-[#047857] text-[10.5px] font-bold">
                     <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -107,18 +107,18 @@
         </div>
 
         <!-- TAB 1: SCOPE MATRIX -->
-        <div id="tab-scope" class="matrix-tab-panel p-6">
+        <div id="tab-scope" class="matrix-tab-panel p-4 sm:p-6">
             <div>
-                <h2 class="text-[15.5px] font-display font-bold text-nimbus-ink">
+                <h2 class="text-[15px] sm:text-[15.5px] font-display font-bold text-nimbus-ink">
                     Spesifikasi Ruang Lingkup Proyek (Scope Matrix)
                 </h2>
-                <p class="text-[12.5px] text-nimbus-muted mt-0.5">
+                <p class="text-[12px] sm:text-[12.5px] text-nimbus-muted mt-0.5">
                     Definisikan batasan modul, fungsionalitas inti, dan penanggung jawab teknis.
                 </p>
             </div>
 
             <div class="mt-5 overflow-x-auto">
-                <table class="w-full border-collapse">
+                <table class="w-full min-w-[680px] border-collapse">
                     <thead>
                         <tr class="bg-[#eef4ff] text-left text-[10.5px] font-bold tracking-wider text-[#334155] uppercase">
                             <th class="py-3 px-4 rounded-l-lg w-[72px]">NO</th>
@@ -171,17 +171,17 @@
         </div>
 
         <!-- TAB 2: DELIVERABLE MATRIX -->
-        <div id="tab-deliverable" class="matrix-tab-panel hidden p-6">
+        <div id="tab-deliverable" class="matrix-tab-panel hidden p-4 sm:p-6">
             <div>
-                <h2 class="text-[15.5px] font-display font-bold text-nimbus-ink">
+                <h2 class="text-[15px] sm:text-[15.5px] font-display font-bold text-nimbus-ink">
                     Spesifikasi Artefak Serah Terima (Deliverable Matrix)
                 </h2>
-                <p class="text-[12.5px] text-nimbus-muted mt-0.5">
+                <p class="text-[12px] sm:text-[12.5px] text-nimbus-muted mt-0.5">
                     Daftar luaran dokumen dan artefak teknis per modul sesuai standar WI-02.
                 </p>
             </div>
             <div class="mt-5 overflow-x-auto">
-                <table class="w-full border-collapse">
+                <table class="w-full min-w-[680px] border-collapse">
                     <thead>
                         <tr class="bg-[#eef4ff] text-left text-[10.5px] font-bold tracking-wider text-[#334155] uppercase">
                             <th class="py-3 px-4 rounded-l-lg w-[72px]">NO</th>
@@ -209,17 +209,17 @@
         </div>
 
         <!-- TAB 3: TIMELINE MATRIX -->
-        <div id="tab-timeline" class="matrix-tab-panel hidden p-6">
+        <div id="tab-timeline" class="matrix-tab-panel hidden p-4 sm:p-6">
             <div>
-                <h2 class="text-[15.5px] font-display font-bold text-nimbus-ink">
+                <h2 class="text-[15px] sm:text-[15.5px] font-display font-bold text-nimbus-ink">
                     Linimasa Eksekusi Modul (Timeline Matrix)
                 </h2>
-                <p class="text-[12.5px] text-nimbus-muted mt-0.5">
+                <p class="text-[12px] sm:text-[12.5px] text-nimbus-muted mt-0.5">
                     Rentang tanggal mulai dan selesai setiap modul pada baseline proyek.
                 </p>
             </div>
             <div class="mt-5 overflow-x-auto">
-                <table class="w-full border-collapse">
+                <table class="w-full min-w-[680px] border-collapse">
                     <thead>
                         <tr class="bg-[#eef4ff] text-left text-[10.5px] font-bold tracking-wider text-[#334155] uppercase">
                             <th class="py-3 px-4 rounded-l-lg w-[72px]">NO</th>
@@ -248,15 +248,15 @@
     </section>
 
     <!-- BOTTOM ACTION FOOTER -->
-    <section class="bg-white border border-nimbus-border rounded-xl px-6 py-4 mt-5 shadow-card flex items-center justify-end gap-3">
-        <button type="button" id="btnResetBaseline" class="px-4 py-2.5 rounded-lg bg-[#f1f5f9] hover:bg-[#e2e8f0] text-nimbus-ink text-[12.5px] font-bold transition-colors">
+    <section class="bg-white border border-nimbus-border rounded-xl px-4 sm:px-6 py-4 mt-5 shadow-card flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3">
+        <button type="button" id="btnResetBaseline" class="w-full sm:w-auto px-4 py-2.5 rounded-lg bg-[#f1f5f9] hover:bg-[#e2e8f0] text-nimbus-ink text-[12.5px] font-bold transition-colors">
             Reset / Batal
         </button>
-        <button type="button" id="btnSaveDraft" class="px-4 py-2.5 rounded-lg bg-[#e8f0fe] hover:bg-[#dbeafe] text-nimbus-primary text-[12.5px] font-bold transition-colors">
+        <button type="button" id="btnSaveDraft" class="w-full sm:w-auto px-4 py-2.5 rounded-lg bg-[#e8f0fe] hover:bg-[#dbeafe] text-nimbus-primary text-[12.5px] font-bold transition-colors">
             Simpan sebagai Draf
         </button>
-        <button type="button" id="btnSaveBaseline" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-nimbus-primary hover:bg-nimbus-primaryHover text-white text-[12.5px] font-bold shadow-xs transition-colors">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <button type="button" id="btnSaveBaseline" class="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-nimbus-primary hover:bg-nimbus-primaryHover text-white text-[12.5px] font-bold shadow-xs transition-colors">
+            <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
             </svg>

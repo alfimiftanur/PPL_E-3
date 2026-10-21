@@ -2,30 +2,30 @@
 
 @section('content')
     <!-- QA & DEMO STATUS SIMULATOR BAR -->
-    <div class="bg-[#eaf2ff] border border-[#cfe0ff] rounded-xl px-5 py-3.5 mb-6">
-        <div class="flex items-center gap-2 text-[11px] font-bold tracking-wider text-[#334155] uppercase">
+    <div class="bg-[#eaf2ff] border border-[#cfe0ff] rounded-xl px-4 sm:px-5 py-3.5 mb-6 flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+        <div class="flex items-center justify-center lg:justify-start gap-2 text-[11px] font-bold tracking-wider text-[#334155] uppercase text-center lg:text-left">
             <svg class="w-3.5 h-3.5 text-nimbus-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.52 16h12.96"/>
             </svg>
             <span>SIMULATOR STATUS PENGUJIAN (QA &amp; DEMO)</span>
         </div>
 
-        <div class="mt-2.5 inline-flex flex-wrap items-center gap-1.5 bg-white p-1 rounded-lg border border-[#dbeafe]">
+        <div class="w-full lg:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-1.5 bg-white p-1.5 rounded-lg border border-[#dbeafe]">
             <!-- Mode 1 -->
-            <button type="button" data-mode="1" class="qa-mode-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-nimbus-primary text-white text-[11.5px] font-semibold transition-all">
-                <span class="w-2 h-2 rounded-full bg-white"></span>
+            <button type="button" data-mode="1" class="qa-mode-btn w-full sm:flex-1 lg:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 sm:py-1.5 rounded-md bg-nimbus-primary text-white text-[11.5px] font-semibold transition-all">
+                <span class="qa-mode-dot w-2 h-2 rounded-full bg-white shrink-0" data-dot-color="bg-emerald-500"></span>
                 <span>Mode 1: Draf Lengkap</span>
             </button>
 
             <!-- Mode 2 -->
-            <button type="button" data-mode="2" class="qa-mode-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white hover:bg-slate-50 text-nimbus-ink text-[11.5px] font-semibold transition-all">
-                <span class="w-2 h-2 rounded-full bg-red-600"></span>
+            <button type="button" data-mode="2" class="qa-mode-btn w-full sm:flex-1 lg:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 sm:py-1.5 rounded-md bg-white hover:bg-slate-50 text-nimbus-ink text-[11.5px] font-semibold transition-all">
+                <span class="qa-mode-dot w-2 h-2 rounded-full bg-red-600 shrink-0" data-dot-color="bg-red-600"></span>
                 <span>Mode 2: Baseline Belum Lengkap</span>
             </button>
 
             <!-- Mode 3 -->
-            <button type="button" data-mode="3" class="qa-mode-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white hover:bg-slate-50 text-nimbus-ink text-[11.5px] font-semibold transition-all">
-                <span class="w-2 h-2 rounded-full bg-[#0f5275]"></span>
+            <button type="button" data-mode="3" class="qa-mode-btn w-full sm:flex-1 lg:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 sm:py-1.5 rounded-md bg-white hover:bg-slate-50 text-nimbus-ink text-[11.5px] font-semibold transition-all">
+                <span class="qa-mode-dot w-2 h-2 rounded-full bg-[#0f5275] shrink-0" data-dot-color="bg-[#0f5275]"></span>
                 <span>Mode 3: Baseline Telah Disetujui</span>
             </button>
         </div>
@@ -34,15 +34,15 @@
     <!-- PAGE HEADER & EXPORT BUTTONS -->
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-            <h1 class="text-[25px] font-display font-extrabold text-nimbus-ink tracking-tight">
+            <h1 class="text-[20px] sm:text-[23px] lg:text-[25px] font-display font-extrabold text-nimbus-ink tracking-tight">
                 Peninjauan dan Persetujuan Baseline Proyek
             </h1>
-            <p class="text-[13.5px] text-nimbus-slate leading-relaxed mt-1.5">
+            <p class="text-[13px] sm:text-[13.5px] text-nimbus-slate leading-relaxed mt-1.5">
                 Evaluasi kelengkapan tiga matriks kerja (Scope, Deliverables, Timeline) dan pengesahan formal sebelum penentuan tanggal rencana operasional.
             </p>
         </div>
 
-        <div class="flex items-center gap-2.5 shrink-0">
+        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
             <button type="button" onclick="window.print()" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#e8f0fe] hover:bg-[#dbeafe] text-nimbus-ink text-[11.5px] font-bold transition-colors">
                 <svg class="w-3.5 h-3.5 text-nimbus-slate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="6 9 6 2 18 2 18 9"/>
@@ -64,7 +64,7 @@
     </div>
 
     <!-- TOP 4 SUMMARY METRIC CARDS -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3.5 sm:gap-4 mt-5 sm:mt-6">
         <!-- 1. Versi & Dibuat -->
         <div class="bg-white border border-nimbus-border rounded-xl p-4 shadow-card flex flex-col justify-between min-h-[112px]">
             <div class="flex items-center justify-between">
@@ -155,25 +155,25 @@
             <!-- Matrices Table Card -->
             <section class="bg-white border border-nimbus-border rounded-xl shadow-card overflow-hidden">
                 <!-- Baris Tab -->
-                <div class="px-5 pt-3 bg-[#f4f7fb] border-b border-nimbus-border flex items-center gap-4">
-                    <button type="button" data-review-tab="scope" class="review-tab-btn px-3.5 py-2.5 rounded-t-lg bg-white border-t border-x border-nimbus-border text-nimbus-primary font-display font-bold text-[12px] inline-flex items-center gap-2 -mb-px">
-                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <div class="px-4 sm:px-5 pt-3 bg-[#f4f7fb] border-b border-nimbus-border flex items-center gap-2 sm:gap-4 overflow-x-auto no-scrollbar">
+                    <button type="button" data-review-tab="scope" class="review-tab-btn px-3 sm:px-3.5 py-2.5 rounded-t-lg bg-white border-t border-x border-nimbus-border text-nimbus-primary font-display font-bold text-[12px] inline-flex items-center gap-2 whitespace-nowrap shrink-0 -mb-px">
+                        <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="3"/><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
                         </svg>
                         <span>Scope Matrix</span>
                         <span class="px-2 py-0.5 rounded-full bg-[#e8f0fe] text-nimbus-ink text-[10.5px] font-bold">{{ count($reviewScopeRows) }} Modul</span>
                     </button>
 
-                    <button type="button" data-review-tab="deliverable" class="review-tab-btn px-3 py-2.5 text-nimbus-slate hover:text-nimbus-ink font-display font-semibold text-[12px] inline-flex items-center gap-2">
-                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <button type="button" data-review-tab="deliverable" class="review-tab-btn px-3 py-2.5 text-nimbus-slate hover:text-nimbus-ink font-display font-semibold text-[12px] inline-flex items-center gap-2 whitespace-nowrap shrink-0">
+                        <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="13" y2="13"/>
                         </svg>
                         <span>Deliverable Matrix</span>
                         <span class="px-2 py-0.5 rounded-full bg-[#e8eef7] text-nimbus-slate text-[10.5px] font-bold">{{ count($reviewDeliverableRows) }} Artefak</span>
                     </button>
 
-                    <button type="button" data-review-tab="timeline" class="review-tab-btn px-3 py-2.5 text-nimbus-slate hover:text-nimbus-ink font-display font-semibold text-[12px] inline-flex items-center gap-2">
-                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <button type="button" data-review-tab="timeline" class="review-tab-btn px-3 py-2.5 text-nimbus-slate hover:text-nimbus-ink font-display font-semibold text-[12px] inline-flex items-center gap-2 whitespace-nowrap shrink-0">
+                        <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
                         </svg>
                         <span>Timeline Matrix</span>
@@ -182,7 +182,7 @@
                 </div>
 
                 <!-- Isi Tabel Cakupan (Scope) -->
-                <div id="review-panel-scope" class="review-tab-panel p-6">
+                <div id="review-panel-scope" class="review-tab-panel p-4 sm:p-6">
                     <h2 class="text-[14.5px] font-display font-bold text-nimbus-ink">
                         Cakupan Modul Inti &amp; Arsitektur
                     </h2>
@@ -191,7 +191,7 @@
                     </p>
 
                     <div class="mt-4 overflow-x-auto">
-                        <table class="w-full border-collapse">
+                        <table class="w-full min-w-[640px] border-collapse">
                             <thead>
                                 <tr class="bg-[#e3edff] text-left text-[10px] font-bold tracking-wider text-[#1e293b] uppercase">
                                     <th class="py-3 px-4 rounded-l-lg w-[185px]">KODE &amp; MODUL</th>
@@ -236,7 +236,7 @@
                 </div>
 
                 <!-- Isi Tabel Deliverable -->
-                <div id="review-panel-deliverable" class="review-tab-panel hidden p-6">
+                <div id="review-panel-deliverable" class="review-tab-panel hidden p-4 sm:p-6">
                     <h2 class="text-[14.5px] font-display font-bold text-nimbus-ink">
                         Daftar Artefak Serah Terima (Deliverables)
                     </h2>
@@ -244,7 +244,7 @@
                         Artefak teknis dan dokumen pengujian per modul.
                     </p>
                     <div class="mt-4 overflow-x-auto">
-                        <table class="w-full border-collapse">
+                        <table class="w-full min-w-[640px] border-collapse">
                             <thead>
                                 <tr class="bg-[#e3edff] text-left text-[10px] font-bold tracking-wider text-[#1e293b] uppercase">
                                     <th class="py-3 px-4 rounded-l-lg w-[185px]">KODE &amp; MODUL</th>
@@ -275,7 +275,7 @@
                 </div>
 
                 <!-- Isi Tabel Timeline -->
-                <div id="review-panel-timeline" class="review-tab-panel hidden p-6">
+                <div id="review-panel-timeline" class="review-tab-panel hidden p-4 sm:p-6">
                     <h2 class="text-[14.5px] font-display font-bold text-nimbus-ink">
                         Linimasa Eksekusi Baseline (Timeline)
                     </h2>
@@ -283,7 +283,7 @@
                         Jadwal mulai dan selesai setiap modul kerja.
                     </p>
                     <div class="mt-4 overflow-x-auto">
-                        <table class="w-full border-collapse">
+                        <table class="w-full min-w-[640px] border-collapse">
                             <thead>
                                 <tr class="bg-[#e3edff] text-left text-[10px] font-bold tracking-wider text-[#1e293b] uppercase">
                                     <th class="py-3 px-4 rounded-l-lg w-[185px]">KODE &amp; MODUL</th>
@@ -336,7 +336,7 @@
                 </div>
 
                 <!-- 3 Fase Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
                     <div class="bg-[#f4f7fb] border border-[#e6ecf5] rounded-lg py-3 px-4 text-center">
                         <div class="inline-flex items-center gap-1.5 text-[11.5px] font-bold text-nimbus-ink">
                             <span class="w-2.5 h-2.5 rounded-full bg-[#1546c8]"></span>
@@ -408,24 +408,24 @@
     </div>
 
     <!-- BOTTOM ACTION FOOTER -->
-    <section class="bg-white border border-nimbus-border rounded-xl px-6 py-4 mt-5 shadow-card flex flex-wrap items-center justify-between gap-4">
-        <a href="{{ route('projects.baseline-setup') }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#e8eef7] hover:bg-[#dbeafe] text-nimbus-ink text-[12px] font-bold transition-colors">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <section class="bg-white border border-nimbus-border rounded-xl px-4 sm:px-6 py-4 mt-5 shadow-card flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+        <a href="{{ route('projects.baseline-setup') }}" class="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#e8eef7] hover:bg-[#dbeafe] text-nimbus-ink text-[12px] font-bold transition-colors">
+            <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="19" y1="12" x2="5" y2="12"/>
                 <polyline points="12 19 5 12 12 5"/>
             </svg>
             <span>Kembali ke Penyusunan Baseline</span>
         </a>
 
-        <div class="flex items-center gap-3">
-            <button type="button" id="btnApproveBaseline" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-nimbus-primary hover:bg-nimbus-primaryHover text-white text-[12.5px] font-bold shadow-xs transition-all">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
+            <button type="button" id="btnApproveBaseline" class="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-nimbus-primary hover:bg-nimbus-primaryHover text-white text-[12.5px] font-bold shadow-xs transition-all">
+                <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="20 6 9 17 4 12"/>
                 </svg>
                 <span>Setujui Baseline</span>
             </button>
 
-            <a id="btnNextProjectPlan" href="{{ route('projects.planned-date') }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#e8eef7] text-[#64748b] text-[12.5px] font-bold transition-all">
+            <a id="btnNextProjectPlan" href="{{ route('projects.planned-date') }}" class="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#e8eef7] text-[#64748b] text-[12.5px] font-bold transition-all">
                 <span>Lanjut ke Project Plan</span>
                 <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12"/>
@@ -451,10 +451,14 @@
         function applyMode(mode) {
             modeBtns.forEach((b) => {
                 const isActive = b.getAttribute('data-mode') === String(mode);
+                const dot = b.querySelector('.qa-mode-dot');
+                const inactiveDotColor = dot ? dot.getAttribute('data-dot-color') : 'bg-nimbus-primary';
                 if (isActive) {
-                    b.className = 'qa-mode-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-nimbus-primary text-white text-[11.5px] font-semibold transition-all';
+                    b.className = 'qa-mode-btn w-full sm:flex-1 lg:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 sm:py-1.5 rounded-md bg-nimbus-primary text-white text-[11.5px] font-semibold transition-all';
+                    if (dot) dot.className = 'qa-mode-dot w-2 h-2 rounded-full bg-white shrink-0';
                 } else {
-                    b.className = 'qa-mode-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white hover:bg-slate-50 text-nimbus-ink text-[11.5px] font-semibold transition-all';
+                    b.className = 'qa-mode-btn w-full sm:flex-1 lg:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 sm:py-1.5 rounded-md bg-white hover:bg-slate-50 text-nimbus-ink text-[11.5px] font-semibold transition-all';
+                    if (dot) dot.className = `qa-mode-dot w-2 h-2 rounded-full ${inactiveDotColor} shrink-0`;
                 }
             });
 
@@ -482,8 +486,8 @@
                     </div>
                 `;
                 btnApprove.disabled = false;
-                btnApprove.className = 'inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-nimbus-primary hover:bg-nimbus-primaryHover text-white text-[12.5px] font-bold shadow-xs transition-all';
-                btnNext.className = 'inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#e8eef7] text-[#64748b] text-[12.5px] font-bold transition-all';
+                btnApprove.className = 'w-full sm:w-auto justify-center inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-nimbus-primary hover:bg-nimbus-primaryHover text-white text-[12.5px] font-bold shadow-xs transition-all';
+                btnNext.className = 'w-full sm:w-auto justify-center inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#e8eef7] text-[#64748b] text-[12.5px] font-bold transition-all';
             } else if (mode === 2) {
                 docStatusBadgeWrap.innerHTML = `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#fef3c7] text-[#b45309] text-[11px] font-bold"><span class="w-1.5 h-1.5 rounded-full bg-[#d97706]"></span><span>Draf Belum Lengkap</span></span>`;
                 docStatusSub.textContent = 'Menunggu kelengkapan matriks';
@@ -506,7 +510,7 @@
                     </div>
                 `;
                 btnApprove.disabled = true;
-                btnApprove.className = 'inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-200 text-slate-400 cursor-not-allowed text-[12.5px] font-bold transition-all';
+                btnApprove.className = 'w-full sm:w-auto justify-center inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-200 text-slate-400 cursor-not-allowed text-[12.5px] font-bold transition-all';
             } else if (mode === 3) {
                 docStatusBadgeWrap.innerHTML = `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#d1fae5] text-[#047857] text-[11px] font-bold"><span class="w-1.5 h-1.5 rounded-full bg-[#059669]"></span><span>Disetujui (APPROVED)</span></span>`;
                 docStatusSub.textContent = 'Acuan resmi terkunci';
@@ -521,7 +525,7 @@
                     </div>
                     <h3 class="text-[14px] font-display font-bold text-nimbus-ink mt-4">Baseline Disetujui</h3>
                     <p class="text-[11.5px] text-nimbus-slate leading-relaxed mt-1.5 max-w-[260px]">
-                        Baseline v1.0 disetujui oleh <strong>Project Manager (USR-0101)</strong> pada <span class="font-mono">2026-10-14 10:00:00 WIB</span>.
+                        Baseline v1.0 disetujui oleh <strong>Project Manager (01924b1e-7f32-7c40-8a01-9c0010100101)</strong> pada <span class="font-mono">2026-10-14 10:00:00 WIB</span>.
                     </p>
                     <div class="mt-5 w-full bg-white border border-[#a7f3d0] rounded-lg px-4 py-2.5 flex items-center justify-center gap-2.5">
                         <span class="w-2 h-2 rounded-full bg-[#059669] shrink-0"></span>
@@ -529,8 +533,8 @@
                     </div>
                 `;
                 btnApprove.disabled = true;
-                btnApprove.className = 'inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-200 text-slate-500 cursor-not-allowed text-[12.5px] font-bold transition-all';
-                btnNext.className = 'inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-nimbus-primary hover:bg-nimbus-primaryHover text-white text-[12.5px] font-bold shadow-xs transition-all';
+                btnApprove.className = 'w-full sm:w-auto justify-center inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-200 text-slate-500 cursor-not-allowed text-[12.5px] font-bold transition-all';
+                btnNext.className = 'w-full sm:w-auto justify-center inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-nimbus-primary hover:bg-nimbus-primaryHover text-white text-[12.5px] font-bold shadow-xs transition-all';
             }
         }
 
@@ -546,9 +550,9 @@
                 const target = btn.getAttribute('data-review-tab');
                 reviewTabBtns.forEach((b) => {
                     if (b.getAttribute('data-review-tab') === target) {
-                        b.className = 'review-tab-btn px-3.5 py-2.5 rounded-t-lg bg-white border-t border-x border-nimbus-border text-nimbus-primary font-display font-bold text-[12px] inline-flex items-center gap-2 -mb-px';
+                        b.className = 'review-tab-btn shrink-0 whitespace-nowrap px-3.5 py-2.5 rounded-t-lg bg-white border-t border-x border-nimbus-border text-nimbus-primary font-display font-bold text-[12px] inline-flex items-center gap-2 -mb-px';
                     } else {
-                        b.className = 'review-tab-btn px-3 py-2.5 text-nimbus-slate hover:text-nimbus-ink font-display font-semibold text-[12px] inline-flex items-center gap-2';
+                        b.className = 'review-tab-btn shrink-0 whitespace-nowrap px-3 py-2.5 text-nimbus-slate hover:text-nimbus-ink font-display font-semibold text-[12px] inline-flex items-center gap-2';
                     }
                 });
                 Object.keys(reviewPanels).forEach((k) => {

@@ -13,20 +13,33 @@
     <!-- Vite Compiled Global Tailwind CSS & JS -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen flex bg-nimbus-bg text-nimbus-ink font-sans selection:bg-nimbus-primary selection:text-white">
+<body class="min-h-screen flex bg-nimbus-bg text-nimbus-ink font-sans selection:bg-nimbus-primary selection:text-white overflow-x-hidden">
 
-    <!-- LEFT SIDEBAR -->
-    <aside class="w-[260px] shrink-0 bg-white border-r border-nimbus-border flex flex-col justify-between sticky top-0 h-screen overflow-y-auto select-none z-30">
+    <!-- MOBILE/TABLET SIDEBAR BACKDROP -->
+    <div id="sidebarBackdrop" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 hidden lg:hidden transition-opacity"></div>
+
+    <!-- LEFT SIDEBAR (Drawer on Mobile/Tablet, Sticky on Desktop) -->
+    <aside id="appSidebar" class="w-[260px] shrink-0 bg-white border-r border-nimbus-border flex flex-col justify-between fixed inset-y-0 left-0 z-50 -translate-x-full lg:translate-x-0 lg:sticky lg:top-0 h-screen overflow-y-auto select-none transition-transform duration-200 ease-in-out">
         <div>
             <!-- Brand Header -->
-            <div class="h-[64px] px-5 flex items-center gap-3 border-b border-nimbus-border">
-                <div class="w-8 h-8 rounded-lg bg-nimbus-primary text-white font-display font-bold text-sm flex items-center justify-center shadow-xs shrink-0">
-                    N
+            <div class="h-[64px] px-5 flex items-center justify-between gap-3 border-b border-nimbus-border">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-8 h-8 rounded-lg bg-nimbus-primary text-white font-display font-bold text-sm flex items-center justify-center shadow-xs shrink-0">
+                        N
+                    </div>
+                    <div class="leading-tight truncate">
+                        <div class="text-[13px] font-display font-bold text-nimbus-ink tracking-tight truncate">PT Anaheim Nimbus Universal</div>
+                        <div class="text-[10px] font-semibold tracking-[0.08em] text-nimbus-muted uppercase mt-0.5">NIMBUS CORE ERP</div>
+                    </div>
                 </div>
-                <div class="leading-tight">
-                    <div class="text-[13px] font-display font-bold text-nimbus-ink tracking-tight">PT Anaheim Nimbus Universal</div>
-                    <div class="text-[10px] font-semibold tracking-[0.08em] text-nimbus-muted uppercase mt-0.5">NIMBUS CORE ERP</div>
-                </div>
+
+                <!-- Close Sidebar Button (Mobile/Tablet Only) -->
+                <button type="button" id="btnCloseSidebar" class="lg:hidden p-1.5 rounded-lg text-nimbus-slate hover:bg-slate-100 transition-colors" aria-label="Tutup Menu">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
             </div>
 
             <!-- Group Label -->
@@ -129,32 +142,40 @@
     <!-- MAIN CONTENT WRAPPER -->
     <div class="flex-1 flex flex-col min-w-0">
         <!-- TOPBAR -->
-        <header class="h-[64px] bg-white border-b border-nimbus-border px-8 flex items-center justify-between shrink-0 sticky top-0 z-20">
-            <!-- Left Breadcrumb -->
-            <div class="flex items-center gap-2.5 text-[13px]">
-                <span class="inline-flex items-center gap-2 text-[#475569] font-medium">
+        <header class="h-[64px] bg-white border-b border-nimbus-border px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3 shrink-0 sticky top-0 z-20">
+            <!-- Left: Hamburger (Mobile/Tablet) + Breadcrumb -->
+            <div class="flex items-center gap-2 sm:gap-2.5 text-[13px] min-w-0">
+                <button type="button" id="btnOpenSidebar" class="lg:hidden p-2 -ml-1 rounded-lg text-nimbus-ink hover:bg-slate-100 transition-colors shrink-0" aria-label="Buka Menu">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
+                </button>
+
+                <span class="hidden sm:inline-flex items-center gap-2 text-[#475569] font-medium shrink-0">
                     <svg class="w-4 h-4 text-[#64748b]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
                     </svg>
-                    Portofolio Proyek
+                    <span>Portofolio Proyek</span>
                 </span>
 
-                <span class="text-slate-400 font-normal px-0.5">{{ $breadcrumbSeparator ?? '/' }}</span>
+                <span class="hidden sm:inline text-slate-400 font-normal px-0.5">{{ $breadcrumbSeparator ?? '/' }}</span>
 
                 @if(($breadcrumbActiveStyle ?? 'solid') === 'solid')
-                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-nimbus-primary text-white text-[12px] font-semibold tracking-tight">
+                    <span class="inline-flex items-center px-2.5 sm:px-3 py-1 rounded-full bg-nimbus-primary text-white text-[11.5px] sm:text-[12px] font-semibold tracking-tight truncate">
                         {{ $breadcrumb ?? 'Analisis Awal' }}
                     </span>
                 @else
-                    <span class="inline-flex items-center px-3 py-1 rounded-md bg-[#e3edff] text-nimbus-primary text-[12px] font-semibold tracking-tight">
+                    <span class="inline-flex items-center px-2.5 sm:px-3 py-1 rounded-md bg-[#e3edff] text-nimbus-primary text-[11.5px] sm:text-[12px] font-semibold tracking-tight truncate">
                         {{ $breadcrumb ?? 'Analisis Awal' }}
                     </span>
                 @endif
             </div>
 
             <!-- Right User Profile -->
-            <div class="flex items-center gap-3">
-                <div class="text-right leading-tight">
+            <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
+                <div class="hidden sm:block text-right leading-tight">
                     <div class="inline-flex items-center gap-1.5 text-[13px] font-bold text-nimbus-ink">
                         <span>Project Manager</span>
                         <svg class="w-4 h-4 text-nimbus-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -171,10 +192,33 @@
         </header>
 
         <!-- PAGE CONTENT -->
-        <main class="flex-1 px-8 py-7 w-full">
+        <main class="flex-1 px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-7 w-full">
             @yield('content')
         </main>
     </div>
+
+    <script>
+        (function () {
+            const sidebar = document.getElementById('appSidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            const btnOpen = document.getElementById('btnOpenSidebar');
+            const btnClose = document.getElementById('btnCloseSidebar');
+
+            function openSidebar() {
+                sidebar?.classList.remove('-translate-x-full');
+                backdrop?.classList.remove('hidden');
+            }
+
+            function closeSidebar() {
+                sidebar?.classList.add('-translate-x-full');
+                backdrop?.classList.add('hidden');
+            }
+
+            btnOpen?.addEventListener('click', openSidebar);
+            btnClose?.addEventListener('click', closeSidebar);
+            backdrop?.addEventListener('click', closeSidebar);
+        })();
+    </script>
 
     @stack('scripts')
 </body>

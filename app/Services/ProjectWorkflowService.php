@@ -11,6 +11,7 @@ use Carbon\Carbon;
 class ProjectWorkflowService
 {
     public const DEFAULT_PROJECT_ID = '01924b1e-7f32-7a81-9b12-45e8a1234567';
+    public const DEFAULT_PM_USER_ID = '01924b1e-7f32-7c40-8a01-9c0010100101';
 
     private string $seedPath;
     private string $runtimePath;
@@ -52,7 +53,7 @@ class ProjectWorkflowService
             'projectCondition' => $projectCondition,
             'status' => 'Tersimpan',
             'isSaved' => true,
-            'updatedBy' => 'USR-0101',
+            'updatedBy' => self::DEFAULT_PM_USER_ID,
             'updatedAt' => $now,
         ];
 
@@ -187,7 +188,7 @@ class ProjectWorkflowService
             $state['baseline']['isComplete'] = true;
             $state['baseline']['completenessLabel'] = 'Lengkap (3/3 Matriks)';
             $state['baseline']['completenessSub'] = 'Scope, Deliverables, Timeline';
-            $state['baseline']['approvedBy'] = 'Project Manager (USR-0101)';
+            $state['baseline']['approvedBy'] = 'Project Manager ('.self::DEFAULT_PM_USER_ID.')';
             $state['baseline']['approvedAt'] = $state['baseline']['approvedAt'] ?: '2026-10-14 10:00:00 WIB';
         }
 

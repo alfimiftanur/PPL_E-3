@@ -3,18 +3,18 @@
 @section('content')
     <!-- PAGE HEADER -->
     <div>
-        <h1 class="text-[25px] font-display font-extrabold text-nimbus-ink tracking-tight">
+        <h1 class="text-[20px] sm:text-[23px] lg:text-[25px] font-display font-extrabold text-nimbus-ink tracking-tight">
             Penentuan Tanggal Rencana Project Plan
         </h1>
-        <p class="text-[13.5px] text-nimbus-slate leading-relaxed mt-1.5">
+        <p class="text-[13px] sm:text-[13.5px] text-nimbus-slate leading-relaxed mt-1.5">
             Konfigurasi jadwal rencana pelaksanaan proyek oleh Project Manager dan perhitungan otomatis dengan tenggat H-1 berbasis hari kerja.
         </p>
     </div>
 
     <!-- TOP 2-COLUMN GRID -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 mt-5 sm:mt-6 items-start">
         <!-- LEFT COLUMN: SCHEDULE CONFIGURATION -->
-        <section class="lg:col-span-7 bg-white border border-nimbus-border rounded-xl p-6 shadow-card">
+        <section class="lg:col-span-7 bg-white border border-nimbus-border rounded-xl p-4 sm:p-6 shadow-card">
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 rounded-lg bg-[#eef4ff] text-nimbus-primary flex items-center justify-center shrink-0">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -59,9 +59,9 @@
             </div>
 
             <!-- Action Buttons -->
-            <div class="mt-6 flex items-center gap-3">
-                <button type="button" id="btnSaveDate" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-nimbus-primary hover:bg-nimbus-primaryHover text-white text-[13px] font-semibold shadow-xs transition-colors">
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <div class="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
+                <button type="button" id="btnSaveDate" class="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-nimbus-primary hover:bg-nimbus-primaryHover text-white text-[13px] font-semibold shadow-xs transition-colors">
+                    <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
                         <polyline points="17 21 17 13 7 13 7 21"/>
                         <polyline points="7 3 7 8 15 8"/>
@@ -69,8 +69,8 @@
                     <span>Simpan Tanggal</span>
                 </button>
 
-                <button type="button" id="btnResetDate" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#e8f0fe] hover:bg-[#dbeafe] text-nimbus-ink text-[12.5px] font-semibold transition-colors">
-                    <svg class="w-3.5 h-3.5 text-nimbus-slate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <button type="button" id="btnResetDate" class="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#e8f0fe] hover:bg-[#dbeafe] text-nimbus-ink text-[12.5px] font-semibold transition-colors">
+                    <svg class="w-3.5 h-3.5 text-nimbus-slate shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
                         <path d="M3 3v5h5"/>
                     </svg>
@@ -79,20 +79,20 @@
             </div>
 
             <!-- Timestamp Footer -->
-            <div class="mt-7 pt-4 border-t border-[#f1f5f9] flex items-center gap-2 text-[11.5px] text-nimbus-slate">
-                <svg class="w-3.5 h-3.5 text-nimbus-muted shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <div class="mt-7 pt-4 border-t border-[#f1f5f9] flex items-start sm:items-center gap-2 text-[11.5px] text-nimbus-slate">
+                <svg class="w-3.5 h-3.5 text-nimbus-muted shrink-0 mt-0.5 sm:mt-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
                     <path d="M3 3v5h5"/>
                     <path d="M12 7v5l4 2"/>
                 </svg>
-                <span>
+                <span class="leading-relaxed">
                     Terakhir disimpan: <strong id="lastSavedTime" class="font-mono font-bold text-nimbus-ink">2026-10-08 14:15:00 WIB</strong> • Otorisasi: <strong class="font-bold text-nimbus-ink">Project Manager</strong>
                 </span>
             </div>
         </section>
 
         <!-- RIGHT COLUMN: AUTOMATIC H-1 DEADLINE -->
-        <section class="lg:col-span-5 bg-[#eef4ff] border border-[#d8e6ff] rounded-xl p-6">
+        <section class="lg:col-span-5 bg-[#eef4ff] border border-[#d8e6ff] rounded-xl p-4 sm:p-6">
             <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-lg bg-nimbus-primary text-white flex items-center justify-center shrink-0 shadow-xs">
@@ -170,7 +170,7 @@
         </div>
 
         <!-- 4 Kartu Terkunci Sprint 2 -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mt-5">
             <!-- 01/04 Scope Detail Matrix -->
             <div class="bg-[#f4f7fb] border border-[#e6ecf5] rounded-xl p-5 flex flex-col justify-between min-h-[195px]">
                 <div>

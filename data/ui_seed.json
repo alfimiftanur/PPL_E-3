@@ -8,7 +8,7 @@
     "intakeStatus": "diterima PM",
     "handoverDate": "2026-10-06",
     "pmName": "Project Manager",
-    "pmUserId": "USR-0101"
+    "pmUserId": "01924b1e-7f32-7c40-8a01-9c0010100101"
   },
   "projectsCatalog": [
     {
@@ -18,7 +18,8 @@
       "clientName": "PT Nusantara Sejahtera Pratama, Tbk.",
       "clientDivision": "Perbankan & Finansial",
       "intakeStatus": "diterima PM",
-      "handoverDate": "2026-10-06"
+      "handoverDate": "2026-10-06",
+      "pmUserId": "01924b1e-7f32-7c40-8a01-9c0010100101"
     },
     {
       "projectId": "01924b1e-7f32-7a81-9b12-45e8a1234568",
@@ -27,7 +28,8 @@
       "clientName": "PT Bank Sentosa Internasional, Tbk.",
       "clientDivision": "Digital Banking & Retail",
       "intakeStatus": "diterima PM",
-      "handoverDate": "2026-10-07"
+      "handoverDate": "2026-10-07",
+      "pmUserId": "01924b1e-7f32-7c40-8a01-9c0010100102"
     },
     {
       "projectId": "01924b1e-7f32-7a81-9b12-45e8a1234569",
@@ -36,7 +38,8 @@
       "clientName": "PT Krakatau Maritim Logistik",
       "clientDivision": "Logistik & Kepelabuhanan",
       "intakeStatus": "diterima PM",
-      "handoverDate": "2026-10-08"
+      "handoverDate": "2026-10-08",
+      "pmUserId": "01924b1e-7f32-7c40-8a01-9c0010100103"
     },
     {
       "projectId": "01924b1e-7f32-7a81-9b12-45e8a1234570",
@@ -45,7 +48,8 @@
       "clientName": "PT Asuransi Jiwa Mandiri Utama",
       "clientDivision": "Asuransi & Aktuaria",
       "intakeStatus": "diterima PM",
-      "handoverDate": "2026-10-09"
+      "handoverDate": "2026-10-09",
+      "pmUserId": "01924b1e-7f32-7c40-8a01-9c0010100104"
     },
     {
       "projectId": "01924b1e-7f32-7a81-9b12-45e8a1234571",
@@ -54,7 +58,8 @@
       "clientName": "PT Danantara Sekuritas Indonesia",
       "clientDivision": "Pasar Modal & Treasury",
       "intakeStatus": "diterima PM",
-      "handoverDate": "2026-10-10"
+      "handoverDate": "2026-10-10",
+      "pmUserId": "01924b1e-7f32-7c40-8a01-9c0010100105"
     }
   ],
   "initialAnalysisSamples": [

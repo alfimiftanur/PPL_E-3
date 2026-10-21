@@ -4,7 +4,7 @@
     <!-- PAGE HEADER -->
     <div>
         <div class="flex items-center gap-2.5">
-            <h1 class="text-[25px] font-display font-extrabold text-nimbus-ink tracking-tight">
+            <h1 class="text-[20px] sm:text-[23px] lg:text-[25px] font-display font-extrabold text-nimbus-ink tracking-tight">
                 Pencatatan Analisis Awal Proyek
             </h1>
             <svg class="w-5 h-5 text-nimbus-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -12,16 +12,16 @@
                 <path d="m9 12 2 2 4-4"/>
             </svg>
         </div>
-        <p class="text-[13.5px] text-nimbus-slate leading-relaxed mt-1.5">
+        <p class="text-[13px] sm:text-[13.5px] text-nimbus-slate leading-relaxed mt-1.5">
             Dokumentasi kebutuhan awal dan kondisi awal proyek oleh Project Manager (PM) sebagai landasan penyusunan proyek (Project Charter) serta baseline ruang lingkup dan jadwal.
         </p>
     </div>
 
     <!-- READ-ONLY PROJECT DATA CARD -->
-    <section class="bg-white border border-nimbus-border rounded-xl p-6 mt-6 shadow-card">
-        <div class="flex items-center justify-between">
+    <section class="bg-white border border-nimbus-border rounded-xl p-4 sm:p-6 mt-5 sm:mt-6 shadow-card">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div class="flex items-center gap-2.5">
-                <svg class="w-4 h-4 text-nimbus-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="w-4 h-4 text-nimbus-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <ellipse cx="12" cy="5" rx="9" ry="3"/>
                     <path d="M3 5V19A9 3 0 0 0 21 19V5"/>
                     <path d="M3 12A9 3 0 0 0 21 12"/>
@@ -29,12 +29,12 @@
                 <h2 class="text-[13.5px] font-display font-bold text-nimbus-ink">Data Proyek (Read-Only)</h2>
             </div>
             <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
-                <span class="font-mono text-[11px] font-semibold tracking-wider text-nimbus-muted uppercase">TERHUBUNG SECARA REAL-TIME</span>
+                <span class="w-2 h-2 rounded-full bg-[#10b981] shrink-0"></span>
+                <span class="font-mono text-[10.5px] sm:text-[11px] font-semibold tracking-wider text-nimbus-muted uppercase">TERHUBUNG SECARA REAL-TIME</span>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3.5 sm:gap-4 mt-4">
             <!-- 1. Project Name -->
             <div class="bg-[#f8fafc] border border-[#e6ecf5] rounded-lg p-4 flex flex-col justify-between min-h-[118px]">
                 <div>
@@ -150,15 +150,15 @@
     </div>
 
     <!-- INITIAL ANALYSIS FORM CARD -->
-    <section class="bg-white border border-nimbus-border rounded-xl p-6 mt-5 shadow-card">
-        <div class="flex items-start justify-between">
+    <section class="bg-white border border-nimbus-border rounded-xl p-4 sm:p-6 mt-5 shadow-card">
+        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
             <div>
-                <h2 class="text-[15.5px] font-display font-bold text-nimbus-ink">Formulir Analisis Awal</h2>
-                <p class="text-[12.5px] text-nimbus-muted mt-0.5">
+                <h2 class="text-[15px] sm:text-[15.5px] font-display font-bold text-nimbus-ink">Formulir Analisis Awal</h2>
+                <p class="text-[12px] sm:text-[12.5px] text-nimbus-muted mt-0.5">
                     Lengkapi kedua bidang wajib di bawah ini secara ringkas dan faktual.
                 </p>
             </div>
-            <div class="text-[12px] text-nimbus-slate font-medium">
+            <div class="text-[12px] text-nimbus-slate font-medium shrink-0">
                 <span class="text-red-600 font-bold">*</span> Bidang wajib diisi
             </div>
         </div>
@@ -216,10 +216,10 @@
             </div>
 
             <!-- Action Buttons Row -->
-            <div class="mt-6 pt-5 border-t border-[#f1f5f9] flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <button type="button" id="btnLoadSample" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#f1f5f9] hover:bg-[#e2e8f0] border border-[#dce4f0] text-[12.5px] font-semibold text-nimbus-ink transition-colors">
-                        <svg class="w-3.5 h-3.5 text-nimbus-slate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <div class="mt-6 pt-5 border-t border-[#f1f5f9] flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                    <button type="button" id="btnLoadSample" class="flex-1 sm:flex-initial justify-center inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#f1f5f9] hover:bg-[#e2e8f0] border border-[#dce4f0] text-[12.5px] font-semibold text-nimbus-ink transition-colors">
+                        <svg class="w-3.5 h-3.5 text-nimbus-slate shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="4" width="18" height="16" rx="2"/>
                             <path d="M7 8h10"/>
                             <path d="M7 12h6"/>
@@ -227,8 +227,8 @@
                         <span>Muat Contoh Data</span>
                     </button>
 
-                    <button type="button" id="btnClearForm" class="inline-flex items-center gap-1.5 px-3 py-2 text-[12.5px] font-medium text-nimbus-muted hover:text-nimbus-ink transition-colors">
-                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <button type="button" id="btnClearForm" class="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-[12.5px] font-medium text-nimbus-muted hover:text-nimbus-ink transition-colors">
+                        <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
                             <path d="M3 3v5h5"/>
                         </svg>
@@ -236,8 +236,8 @@
                     </button>
                 </div>
 
-                <button type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-nimbus-primary hover:bg-nimbus-primaryHover text-white text-[13px] font-semibold shadow-xs transition-colors">
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <button type="submit" class="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-nimbus-primary hover:bg-nimbus-primaryHover text-white text-[13px] font-semibold shadow-xs transition-colors">
+                    <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
                         <polyline points="17 21 17 13 7 13 7 21"/>
                         <polyline points="7 3 7 8 15 8"/>

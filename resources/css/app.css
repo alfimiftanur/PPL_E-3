@@ -62,3 +62,12 @@
         cursor: pointer;
     }
 }
+
+/* Utility to hide scrollbars on horizontal tab bars while preserving touch scrolling */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
