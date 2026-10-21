@@ -19,8 +19,10 @@
 /public/hot
 /public/storage
 /storage/*.key
+/storage/app/workflow_state.json
 /storage/pail
 /vendor
+/docs
 _ide_helper.php
 Homestead.json
 Homestead.yaml
