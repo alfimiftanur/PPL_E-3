@@ -7,14 +7,13 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Pengganti sementara validasi token F-1 (API-F1-02/API-F1-05).
- * Hanya menerima token tiruan dari MOCK_TOKEN. Metode final menunggu keputusan OPEN-02.
+ * Middleware for validating incoming bearer tokens against the configured mock token.
  */
 class MockBearerToken
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $expected = (string) config('services.e3.mock_token');
+        $expected = (string) config('services.auth.mock_token');
         $given = (string) $request->bearerToken();
 
         if ($given === '' || ! hash_equals($expected, $given)) {

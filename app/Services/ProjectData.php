@@ -3,8 +3,8 @@
 namespace App\Services;
 
 /**
- * Sumber data contoh dari data/seed.json (tanpa database).
- * Pada implementasi sungguhan, kelas ini diganti query ke tabel E-3.
+ * Seed data source from data/seed.json (stateless/no database).
+ * In production, this service queries the project database tables.
  */
 class ProjectData
 {
@@ -28,7 +28,7 @@ class ProjectData
         return in_array($projectId, $this->data['knownProjects'], true);
     }
 
-    /** Kesiapan eksekusi (API-K-E3-01). */
+    /** Returns project execution readiness status. */
     public function executionReadiness(string $projectId): array
     {
         $kickoff = $this->last($this->data['kickoffs'], fn ($k) => $k['projectId'] === $projectId);
@@ -47,7 +47,7 @@ class ProjectData
         ];
     }
 
-    /** Rujukan perencanaan (API-K-E3-02). Hanya baseline APPROVED terbaru; DRAFT tidak pernah tampil. */
+    /** Returns latest APPROVED baseline and project plan references; DRAFT baselines are excluded. */
     public function planningReferences(string $projectId): array
     {
         $approved = array_filter(

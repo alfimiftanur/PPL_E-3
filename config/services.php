@@ -35,8 +35,8 @@ return [
         ],
     ],
 
-    // Token tiruan pengganti validasi F-1 (API-F1-02/API-F1-05). Seluruh nilai fiktif.
-    'e3' => [
+    // Mock token configuration for bearer token authentication.
+    'auth' => [
         'mock_token' => env('MOCK_TOKEN', 'mock-token'),
     ],
 

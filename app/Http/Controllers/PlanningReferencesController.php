@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 
-/** API-K-E3-02: ID baseline APPROVED dan ID project plan, dibaca E-5 dan D-3 (usulan). */
+/** Returns latest approved baseline ID and project plan ID for a project. */
 class PlanningReferencesController extends ProjectEndpoint
 {
     public function __invoke(string $projectId): JsonResponse

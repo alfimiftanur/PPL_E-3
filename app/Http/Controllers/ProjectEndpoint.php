@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\ProjectData;
 use Illuminate\Http\JsonResponse;
 
-/** Pemeriksaan bersama kedua endpoint: format projectId (400) lalu keberadaan proyek (404). */
+/** Shared validation guard for project endpoints: validates projectId format (400) and project existence (404). */
 abstract class ProjectEndpoint extends Controller
 {
     public function __construct(protected ProjectData $data)
