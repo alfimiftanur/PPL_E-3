@@ -90,6 +90,52 @@ class ProjectWorkflowTest extends TestCase
         $this->assertSame('1', $second['analysisId']);
     }
 
+    public function test_initial_analysis_project_id_invariant_and_normalization(): void
+    {
+        $service = app(ProjectWorkflowService::class);
+        $url = '/api/v1/projects/'.self::PROJECT_ID.'/initial-analysis';
+
+        // 1. Reset state has projectId matching project.projectId
+        $state = $service->getState();
+        $this->assertSame(self::PROJECT_ID, $state['initialAnalysis']['projectId']);
+        $this->assertSame($state['project']['projectId'], $state['initialAnalysis']['projectId']);
+
+        // 2. Save initial analysis retains projectId in response and state
+        $saved = $this->postJson($url, [
+            'projectNeed' => 'Kebutuhan Uji',
+            'projectCondition' => 'Kondisi Uji',
+        ], $this->authHeaders())
+            ->assertOk()
+            ->json('initialAnalysis');
+
+        $this->assertSame(self::PROJECT_ID, $saved['projectId']);
+
+        // 3. Overview API returns matching projectId
+        $overview = $this->getJson('/api/v1/projects/'.self::PROJECT_ID.'/overview', $this->authHeaders())
+            ->assertOk()
+            ->json('state');
+        $this->assertSame(self::PROJECT_ID, $overview['initialAnalysis']['projectId']);
+
+        // 4. Clear initial analysis keeps projectId
+        $cleared = $this->deleteJson($url, [], $this->authHeaders())
+            ->assertOk()
+            ->json('initialAnalysis');
+        $this->assertSame(self::PROJECT_ID, $cleared['projectId']);
+        $this->assertSame('Belum dicatat', $cleared['status']);
+        $this->assertFalse($cleared['isSaved']);
+
+        // 5. Normalization for legacy state lacking projectId
+        $runtimePath = storage_path('app/workflow_state.json');
+        $legacy = json_decode((string) file_get_contents($runtimePath), true);
+        unset($legacy['initialAnalysis']['projectId']);
+        file_put_contents($runtimePath, json_encode($legacy, JSON_PRETTY_PRINT));
+
+        // When reading legacy state, projectId is seamlessly restored without data loss
+        $normalizedState = $service->getState();
+        $this->assertSame(self::PROJECT_ID, $normalizedState['initialAnalysis']['projectId']);
+        $this->assertSame('Belum dicatat', $normalizedState['initialAnalysis']['status']);
+    }
+
     public function test_api_planned_date_calculates_h_minus_1_working_day_skipping_weekend(): void
     {
         // Monday 2026-10-19 -> H-1 working day is Friday 2026-10-16

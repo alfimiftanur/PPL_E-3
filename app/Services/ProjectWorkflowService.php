@@ -27,6 +27,12 @@ class ProjectWorkflowService
         if (file_exists($this->runtimePath)) {
             $decoded = json_decode((string) file_get_contents($this->runtimePath), true);
             if (is_array($decoded)) {
+                // Minimal normalization for legacy state lacking initialAnalysis.projectId
+                if (isset($decoded['initialAnalysis']) && !isset($decoded['initialAnalysis']['projectId']) && !empty($decoded['project']['projectId'])) {
+                    $decoded['initialAnalysis']['projectId'] = (string) $decoded['project']['projectId'];
+                    $this->persist($decoded);
+                }
+
                 return $decoded;
             }
         }
@@ -51,9 +57,11 @@ class ProjectWorkflowService
         // Ubah (sudah pernah tersimpan): createdBy/createdAt dipertahankan.
         $existing = $state['initialAnalysis'] ?? [];
         $isUpdate = ($existing['isSaved'] ?? false) === true;
+        $projectId = (string) ($state['project']['projectId'] ?? self::DEFAULT_PROJECT_ID);
 
         $state['initialAnalysis'] = [
             'analysisId' => '1',
+            'projectId' => $projectId,
             'projectNeed' => $projectNeed,
             'projectCondition' => $projectCondition,
             'status' => 'Tersimpan',
@@ -76,9 +84,11 @@ class ProjectWorkflowService
     public function clearInitialAnalysis(): array
     {
         $state = $this->getState();
+        $projectId = (string) ($state['project']['projectId'] ?? self::DEFAULT_PROJECT_ID);
 
         $state['initialAnalysis'] = [
             'analysisId' => '1',
+            'projectId' => $projectId,
             'projectNeed' => '',
             'projectCondition' => '',
             'status' => 'Belum dicatat',
