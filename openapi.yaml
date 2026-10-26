@@ -1,11 +1,14 @@
 openapi: 3.0.3
 info:
-  title: E-3 Execution Readiness API
+  title: E-3 Planning and Execution Readiness API
   version: 0.2.0
   description: >
     Kontrak API kelompok E-3 (Analisis, Baseline, dan Perencanaan Proyek), ERP PT. Anaheim Nimbus Universal.
-    Operasi untuk konsumen E-4 (API-K-E3-01): membaca kesiapan eksekusi proyek dari status MoM kickoff. Operasi untuk E-5 dan D-3 (API-K-E3-02): membaca ID baseline yang disetujui dan ID project plan, kebutuhan konsumen masih perlu dikonfirmasi.
-    Semua ID, path, dan format masih usulan E-3 sampai dikonfirmasi pemilik layanan (lihat dokumen 04).
+    Versi 0.2.0 memuat spesifikasi kesiapan eksekusi (E-4), rujukan baseline dan project plan (E-5, D-3),
+    operasi Analisis Awal Proyek (POST & DELETE initial-analysis), endpoint Ringkasan State (GET overview),
+    pembaruan entitas ENT-K-E3-01 (projectId, createdBy, createdAt), serta penambahan respon error validasi 422 (VALIDATION_ERROR).
+    Operasi untuk konsumen E-4 (API-K-E3-01): membaca kesiapan eksekusi proyek dari status MoM kickoff.
+    Operasi untuk E-5 dan D-3 (API-K-E3-02): membaca ID baseline yang disetujui dan ID project plan.
     Seluruh contoh adalah data fiktif.
   contact:
     name: Kelompok E-3
@@ -15,11 +18,177 @@ servers:
   - url: http://localhost:4010
     description: Mock Prism (npx @stoplight/prism-cli mock openapi.yaml -p 4010).
 tags:
+  - name: initial-analysis
+    description: Pencatatan dan Pengelolaan Analisis Awal Proyek (FTR-K-E3-01, ENT-K-E3-01)
+  - name: project-overview
+    description: Ringkasan State Perencanaan Proyek (/projects/overview)
   - name: execution-readiness
-    description: Kesiapan eksekusi proyek (FTR-K-E3-10)
+    description: Kesiapan eksekusi proyek untuk konsumen E-4 (FTR-K-E3-10, API-K-E3-01)
   - name: planning-references
-    description: Rujukan baseline dan project plan untuk E-5 dan D-3 (FTR-K-E3-04, FTR-K-E3-05)
+    description: Rujukan baseline dan project plan untuk E-5 dan D-3 (FTR-K-E3-04, FTR-K-E3-05, API-K-E3-02)
 paths:
+  /api/v1/projects/{projectId}/initial-analysis:
+    post:
+      operationId: saveInitialAnalysis
+      tags: [initial-analysis]
+      summary: Simpan atau perbarui analisis awal proyek (Buat / Ubah)
+      description: >
+        Menyimpan atau memperbarui kebutuhan awal dan kondisi awal proyek (ENT-K-E3-01).
+        Bila data belum ada, mencatat analisis baru (Buat, B-01).
+        Bila data sudah ada, memperbarui kondisi tanpa mengubah analysisId, projectId, createdBy, dan createdAt (Ubah, B-03).
+        Validasi menolak field yang kosong dengan kode 422 VALIDATION_ERROR (B-06).
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          description: ID proyek kanonis milik D-1 (string UUID v7).
+          schema:
+            type: string
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
+          example: 01924b1e-7f32-7a81-9b12-45e8a1234567
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitialAnalysisInput'
+            examples:
+              buat:
+                summary: Contoh Buat (B-01)
+                value:
+                  projectNeed: Digitalisasi pengelolaan pengadaan dan persediaan barang
+                  projectCondition: Pencatatan pengadaan dan stok masih manual pada spreadsheet terpisah
+              ubah:
+                summary: Contoh Ubah (B-03)
+                value:
+                  projectNeed: Digitalisasi pengelolaan pengadaan dan persediaan barang
+                  projectCondition: Pencatatan pengadaan dan stok masih manual; laporan bulanan sering terlambat
+      responses:
+        '200':
+          description: Analisis awal berhasil disimpan atau diperbarui.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitialAnalysisResponse'
+              examples:
+                tersimpan:
+                  summary: Respons Berhasil Disimpan (B-01 / B-03 / B-05)
+                  value:
+                    message: Analisis awal tersimpan.
+                    initialAnalysis:
+                      analysisId: '1'
+                      projectId: 01924b1e-7f32-7a81-9b12-45e8a1234567
+                      projectNeed: Digitalisasi pengelolaan pengadaan dan persediaan barang
+                      projectCondition: Pencatatan pengadaan dan stok masih manual; laporan bulanan sering terlambat
+                      status: Tersimpan
+                      isSaved: true
+                      createdBy: 01924b1e-7f32-7c40-8a01-9c0010100101
+                      createdAt: '2026-10-26 22:02:53 WIB'
+                      updatedBy: 01924b1e-7f32-7c40-8a01-9c0010100101
+                      updatedAt: '2026-10-26 22:06:59 WIB'
+        '400':
+          $ref: '#/components/responses/InvalidRequest'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      operationId: clearInitialAnalysis
+      tags: [initial-analysis]
+      summary: Kosongkan formulir analisis awal proyek
+      description: >
+        Mengosongkan isian kebutuhan dan kondisi awal proyek. Status berubah menjadi 'Belum dicatat' dan isSaved bernilai false.
+        Atribut projectId tetap dipertahankan menunjuk ke proyek aktif.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          description: ID proyek kanonis milik D-1 (string UUID v7).
+          schema:
+            type: string
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
+          example: 01924b1e-7f32-7a81-9b12-45e8a1234567
+      responses:
+        '200':
+          description: Formulir analisis awal dikosongkan.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitialAnalysisResponse'
+              example:
+                message: Formulir analisis awal dikosongkan.
+                initialAnalysis:
+                  analysisId: '1'
+                  projectId: 01924b1e-7f32-7a81-9b12-45e8a1234567
+                  projectNeed: ''
+                  projectCondition: ''
+                  status: Belum dicatat
+                  isSaved: false
+                  createdBy: null
+                  createdAt: null
+                  updatedBy: null
+                  updatedAt: null
+        '400':
+          $ref: '#/components/responses/InvalidRequest'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/v1/projects/{projectId}/overview:
+    get:
+      operationId: getProjectOverview
+      tags: [project-overview]
+      summary: Baca ringkasan lengkap data dan workflow proyek (B-02, B-04, B-07)
+      description: >
+        Mengembalikan ringkasan lengkap seluruh state perencanaan proyek mencakup informasi proyek kanonis D-1,
+        analisis awal proyek E-3, draf/status baseline, tanggal rencana, rujukan planning-references, dan kesiapan eksekusi.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          description: ID proyek kanonis milik D-1 (string UUID v7).
+          schema:
+            type: string
+            pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
+          example: 01924b1e-7f32-7a81-9b12-45e8a1234567
+      responses:
+        '200':
+          description: Data ringkasan proyek berhasil dibaca.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [state, planningReferences, executionReadiness]
+                properties:
+                  state:
+                    type: object
+                    description: Seluruh state alur perencanaan proyek.
+                  planningReferences:
+                    $ref: '#/components/schemas/PlanningReferences'
+                  executionReadiness:
+                    $ref: '#/components/schemas/ExecutionReadiness'
+        '400':
+          $ref: '#/components/responses/InvalidRequest'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
   /api/v1/projects/{projectId}/execution-readiness:
     get:
       operationId: getExecutionReadiness
@@ -68,16 +237,17 @@ paths:
                     status: IN_PROGRESS
                     completedAt: null
                     readyForExecution: false
+        '400':
+          $ref: '#/components/responses/InvalidRequest'
         '401':
           $ref: '#/components/responses/Unauthenticated'
         '403':
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '400':
-          $ref: '#/components/responses/InvalidRequest'
         '503':
           $ref: '#/components/responses/DependencyUnavailable'
+
   /api/v1/projects/{projectId}/planning-references:
     get:
       operationId: getPlanningReferences
@@ -123,16 +293,17 @@ paths:
                     baselineVersion: null
                     approvedAt: null
                     planId: null
+        '400':
+          $ref: '#/components/responses/InvalidRequest'
         '401':
           $ref: '#/components/responses/Unauthenticated'
         '403':
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
-        '400':
-          $ref: '#/components/responses/InvalidRequest'
         '503':
           $ref: '#/components/responses/DependencyUnavailable'
+
 components:
   securitySchemes:
     bearerAuth:
@@ -142,6 +313,70 @@ components:
         Usulan: Bearer token layanan konsumen (E-4, E-5, D-3) yang divalidasi F-1. Mekanisme final perlu dikonfirmasi F-1.
         Contoh token mock saja, bukan kredensial riil.
   schemas:
+    InitialAnalysisInput:
+      type: object
+      required: [projectNeed, projectCondition]
+      properties:
+        projectNeed:
+          type: string
+          description: Kebutuhan awal proyek (wajib diisi).
+          example: Digitalisasi pengelolaan pengadaan dan persediaan barang
+        projectCondition:
+          type: string
+          description: Kondisi awal infrastruktur dan operasional klien (wajib diisi).
+          example: Pencatatan pengadaan dan stok masih manual pada spreadsheet terpisah
+
+    InitialAnalysis:
+      type: object
+      required: [analysisId, projectId, projectNeed, projectCondition, status, isSaved]
+      properties:
+        analysisId:
+          type: string
+          example: '1'
+        projectId:
+          type: string
+          description: ID proyek kanonis milik D-1 (ENT-K-E3-01).
+          example: 01924b1e-7f32-7a81-9b12-45e8a1234567
+        projectNeed:
+          type: string
+          example: Digitalisasi pengelolaan pengadaan dan persediaan barang
+        projectCondition:
+          type: string
+          example: Pencatatan pengadaan dan stok masih manual; laporan bulanan sering terlambat
+        status:
+          type: string
+          enum: [Belum dicatat, Tersimpan]
+          example: Tersimpan
+        isSaved:
+          type: boolean
+          example: true
+        createdBy:
+          type: string
+          nullable: true
+          example: 01924b1e-7f32-7c40-8a01-9c0010100101
+        createdAt:
+          type: string
+          nullable: true
+          example: 2026-10-26 22:02:53 WIB
+        updatedBy:
+          type: string
+          nullable: true
+          example: 01924b1e-7f32-7c40-8a01-9c0010100101
+        updatedAt:
+          type: string
+          nullable: true
+          example: 2026-10-26 22:06:59 WIB
+
+    InitialAnalysisResponse:
+      type: object
+      required: [message, initialAnalysis]
+      properties:
+        message:
+          type: string
+          example: Analisis awal tersimpan.
+        initialAnalysis:
+          $ref: '#/components/schemas/InitialAnalysis'
+
     ExecutionReadiness:
       type: object
       required: [projectId, kickoffId, momId, status, completedAt, readyForExecution]
@@ -178,6 +413,7 @@ components:
           type: boolean
           description: true hanya bila status adalah COMPLETED. Selain itu false.
           example: true
+
     PlanningReferences:
       type: object
       required: [projectId, baselineId, baselineVersion, approvedAt, planId]
@@ -210,19 +446,38 @@ components:
           pattern: '^[0-9]+$'
           description: ID project plan (ENT-K-E3-03), string angka. Null bila project plan belum dibuat.
           example: '401'
+
+    ValidationError:
+      type: object
+      required: [code, message, errors]
+      properties:
+        code:
+          type: string
+          example: VALIDATION_ERROR
+        message:
+          type: string
+          example: Isian wajib belum terpenuhi.
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            projectCondition: Kondisi awal wajib diisi.
+
     Error:
       type: object
       required: [code, message]
       properties:
         code:
           type: string
-          enum: [UNAUTHENTICATED, FORBIDDEN, PROJECT_NOT_FOUND, INVALID_PROJECT_ID_FORMAT, DEPENDENCY_UNAVAILABLE]
+          enum: [UNAUTHENTICATED, FORBIDDEN, PROJECT_NOT_FOUND, INVALID_PROJECT_ID_FORMAT, DEPENDENCY_UNAVAILABLE, VALIDATION_ERROR]
         message:
           type: string
         details:
           type: array
           items:
             type: string
+
   responses:
     Unauthenticated:
       description: Token tidak ada atau tidak valid.
@@ -248,6 +503,16 @@ components:
         application/json:
           schema: {$ref: '#/components/schemas/Error'}
           example: {code: INVALID_PROJECT_ID_FORMAT, message: Format projectId tidak valid., details: [projectId harus berformat UUID v7]}
+    ValidationError:
+      description: Isian wajib belum terpenuhi atau format input tidak sesuai (HTTP 422).
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/ValidationError'}
+          example:
+            code: VALIDATION_ERROR
+            message: Isian wajib belum terpenuhi.
+            errors:
+              projectCondition: Kondisi awal wajib diisi.
     DependencyUnavailable:
       description: Validasi ke F-1 atau D-1 gagal. E-4 tidak boleh menganggapnya sebagai izin eksekusi.
       content:
