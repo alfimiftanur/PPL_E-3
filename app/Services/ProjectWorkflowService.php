@@ -47,12 +47,23 @@ class ProjectWorkflowService
         $state = $this->getState();
         $now = Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s').' WIB';
 
+        // Simpan pertama: createdBy/createdAt diisi.
+        // Ubah (sudah pernah tersimpan): createdBy/createdAt dipertahankan.
+        $existing = $state['initialAnalysis'] ?? [];
+        $isUpdate = ($existing['isSaved'] ?? false) === true;
+
         $state['initialAnalysis'] = [
             'analysisId' => '1',
             'projectNeed' => $projectNeed,
             'projectCondition' => $projectCondition,
             'status' => 'Tersimpan',
             'isSaved' => true,
+            'createdBy' => $isUpdate
+                ? ($existing['createdBy'] ?? self::DEFAULT_PM_USER_ID)
+                : self::DEFAULT_PM_USER_ID,
+            'createdAt' => $isUpdate
+                ? ($existing['createdAt'] ?? $now)
+                : $now,
             'updatedBy' => self::DEFAULT_PM_USER_ID,
             'updatedAt' => $now,
         ];
@@ -72,6 +83,8 @@ class ProjectWorkflowService
             'projectCondition' => '',
             'status' => 'Belum dicatat',
             'isSaved' => false,
+            'createdBy' => null,
+            'createdAt' => null,
             'updatedBy' => null,
             'updatedAt' => null,
         ];

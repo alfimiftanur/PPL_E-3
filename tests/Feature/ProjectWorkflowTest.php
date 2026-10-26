@@ -60,6 +60,36 @@ class ProjectWorkflowTest extends TestCase
             ->assertJsonPath('initialAnalysis.isSaved', true);
     }
 
+    public function test_api_initial_analysis_keeps_created_fields_on_update(): void
+    {
+        $url = '/api/v1/projects/'.self::PROJECT_ID.'/initial-analysis';
+
+        // Buat
+        $first = $this->postJson($url, [
+            'projectNeed' => 'Kebutuhan A',
+            'projectCondition' => 'Kondisi A',
+        ], $this->authHeaders())
+            ->assertOk()
+            ->json('initialAnalysis');
+
+        $this->assertNotEmpty($first['createdAt']);
+        $this->assertNotEmpty($first['createdBy']);
+
+        // Ubah
+        $second = $this->postJson($url, [
+            'projectNeed' => 'Kebutuhan A',
+            'projectCondition' => 'Kondisi B',
+        ], $this->authHeaders())
+            ->assertOk()
+            ->json('initialAnalysis');
+
+        // createdBy dan createdAt tetap, isi berubah, ID tetap
+        $this->assertSame($first['createdAt'], $second['createdAt']);
+        $this->assertSame($first['createdBy'], $second['createdBy']);
+        $this->assertSame('Kondisi B', $second['projectCondition']);
+        $this->assertSame('1', $second['analysisId']);
+    }
+
     public function test_api_planned_date_calculates_h_minus_1_working_day_skipping_weekend(): void
     {
         // Monday 2026-10-19 -> H-1 working day is Friday 2026-10-16

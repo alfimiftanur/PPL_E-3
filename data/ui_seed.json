@@ -95,6 +95,8 @@
     "projectCondition": "",
     "status": "Belum dicatat",
     "isSaved": false,
+    "createdBy": null,
+    "createdAt": null,
     "updatedBy": null,
     "updatedAt": null
   },
