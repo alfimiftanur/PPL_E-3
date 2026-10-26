@@ -23,6 +23,7 @@
 /storage/pail
 /vendor
 /docs
+/.vite
 _ide_helper.php
 Homestead.json
 Homestead.yaml
