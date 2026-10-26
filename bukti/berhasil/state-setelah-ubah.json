@@ -1,0 +1,366 @@
+{
+    "project": {
+        "projectId": "01924b1e-7f32-7a81-9b12-45e8a1234567",
+        "canonicalCode": "PRJ-ANU-2026-001",
+        "projectName": "Sistem Terpadu Nimbus Core Enterprise ERP",
+        "clientName": "PT Nusantara Sejahtera Pratama, Tbk.",
+        "clientDivision": "Perbankan & Finansial",
+        "intakeStatus": "diterima PM",
+        "handoverDate": "2026-10-06",
+        "pmName": "Project Manager",
+        "pmUserId": "01924b1e-7f32-7c40-8a01-9c0010100101"
+    },
+    "projectsCatalog": [
+        {
+            "projectId": "01924b1e-7f32-7a81-9b12-45e8a1234567",
+            "canonicalCode": "PRJ-ANU-2026-001",
+            "projectName": "Sistem Terpadu Nimbus Core Enterprise ERP",
+            "clientName": "PT Nusantara Sejahtera Pratama, Tbk.",
+            "clientDivision": "Perbankan & Finansial",
+            "intakeStatus": "diterima PM",
+            "handoverDate": "2026-10-06",
+            "pmUserId": "01924b1e-7f32-7c40-8a01-9c0010100101"
+        },
+        {
+            "projectId": "01924b1e-7f32-7a81-9b12-45e8a1234568",
+            "canonicalCode": "PRJ-ANU-2026-002",
+            "projectName": "Platform Omnichannel Digital Banking & Biometric Auth",
+            "clientName": "PT Bank Sentosa Internasional, Tbk.",
+            "clientDivision": "Digital Banking & Retail",
+            "intakeStatus": "diterima PM",
+            "handoverDate": "2026-10-07",
+            "pmUserId": "01924b1e-7f32-7c40-8a01-9c0010100102"
+        },
+        {
+            "projectId": "01924b1e-7f32-7a81-9b12-45e8a1234569",
+            "canonicalCode": "PRJ-ANU-2026-003",
+            "projectName": "Integrasi Core Warehouse & Smart Supply Chain Logistics",
+            "clientName": "PT Krakatau Maritim Logistik",
+            "clientDivision": "Logistik & Kepelabuhanan",
+            "intakeStatus": "diterima PM",
+            "handoverDate": "2026-10-08",
+            "pmUserId": "01924b1e-7f32-7c40-8a01-9c0010100103"
+        },
+        {
+            "projectId": "01924b1e-7f32-7a81-9b12-45e8a1234570",
+            "canonicalCode": "PRJ-ANU-2026-004",
+            "projectName": "Sistem Manajemen Klaim Terpadu & Aktuaria Real-Time",
+            "clientName": "PT Asuransi Jiwa Mandiri Utama",
+            "clientDivision": "Asuransi & Aktuaria",
+            "intakeStatus": "diterima PM",
+            "handoverDate": "2026-10-09",
+            "pmUserId": "01924b1e-7f32-7c40-8a01-9c0010100104"
+        },
+        {
+            "projectId": "01924b1e-7f32-7a81-9b12-45e8a1234571",
+            "canonicalCode": "PRJ-ANU-2026-005",
+            "projectName": "Modernisasi Enterprise Treasury & Regulatory Reporting",
+            "clientName": "PT Danantara Sekuritas Indonesia",
+            "clientDivision": "Pasar Modal & Treasury",
+            "intakeStatus": "diterima PM",
+            "handoverDate": "2026-10-10",
+            "pmUserId": "01924b1e-7f32-7c40-8a01-9c0010100105"
+        }
+    ],
+    "initialAnalysisSamples": [
+        {
+            "analysisId": "1",
+            "projectNeed": "Migrasi core transaction ke arsitektur microservices berdaya tampung 5.000 TPS, enkripsi mTLS penuh antar layanan internal, integrasi settlement otomatis SNAP BI-FAST secara real-time, serta penyediaan dasbor rekonsiliasi terpusat bagi divisi operasional dan kepatuhan perbankan PT Nusantara Sejahtera Pratama, Tbk.",
+            "projectCondition": "Server klien on-premise telah terpasang CentOS 9 Stream dengan klaster database PostgreSQL HA, tim lead architect internal telah disiagakan, dokumen kontrak payung telah ditandatangani, namun otorisasi firewall koneksi database masih dalam proses persetujuan IT Security."
+        },
+        {
+            "analysisId": "2",
+            "projectNeed": "Pembangunan gateway otentikasi biometrik wajah dan sidik jari untuk nasabah mobile banking dengan latensi verifikasi di bawah 250ms serta kepatuhan penuh terhadap standar ISO/IEC 27001 dan PDP.",
+            "projectCondition": "Infrastruktur cloud hybrid sudah tersedia di dua data center Jakarta dan Surabaya, SDK e-KTP reader telah siap diuji coba, menunggu finalisasi sertifikat SSL wildcard dari tim infrastruktur klien."
+        },
+        {
+            "analysisId": "3",
+            "projectNeed": "Otomatisasi pelacakan kontainer berbasis IoT dan sinkronisasi manifest barang secara real-time antara sistem gudang pelabuhan dengan modul akuntansi pusat ERP.",
+            "projectCondition": "Perangkat sensor RFID di 4 terminal utama sudah terpasang, API sandbox bea cukai telah dapat diakses, namun skema migrasi master SKU lama masih perlu pembersihan duplikasi data."
+        },
+        {
+            "analysisId": "4",
+            "projectNeed": "Sentralisasi pemrosesan klaim polis kesehatan dan perhitungan cadangan teknis aktuaria otomatis berbasis aturan underwriting dinamis dengan target pemrosesan 10.000 klaim harian.",
+            "projectCondition": "Database historis polis 5 tahun terakhir tersimpan di Oracle Data Warehouse, tim aktuaria klien telah menyerahkan rumus perhitungan standar, lingkungan staging sudah siap digunakan."
+        },
+        {
+            "analysisId": "5",
+            "projectNeed": "Penyusunan engine pelaporan likuiditas harian otomatis (LCR/NSFR) dan integrasi settlement obligasi korporasi ke sistem pelaporan regulator OJK dan Bank Indonesia.",
+            "projectCondition": "Dokumen spesifikasi format pelaporan e-Reporting terbaru sudah lengkap, server aplikasi staging berbasis Kubernetes telah berjalan normal, tim QA dan kepatuhan klien siap mendampingi."
+        }
+    ],
+    "initialAnalysis": {
+        "analysisId": "1",
+        "projectNeed": "Digitalisasi pengelolaan pengadaan dan persediaan barang",
+        "projectCondition": "Pencatatan pengadaan dan stok masih manual; laporan bulanan sering terlambat",
+        "status": "Tersimpan",
+        "isSaved": true,
+        "createdBy": "01924b1e-7f32-7c40-8a01-9c0010100101",
+        "createdAt": "2026-10-26 21:07:18 WIB",
+        "updatedBy": "01924b1e-7f32-7c40-8a01-9c0010100101",
+        "updatedAt": "2026-10-26 21:07:20 WIB"
+    },
+    "baseline": {
+        "baselineId": "301",
+        "version": 1,
+        "versionLabel": "v1.0",
+        "baselineDate": "Otomatis saat simpan",
+        "createdAt": "2026-10-08 14:15:00 WIB",
+        "status": "DRAFT",
+        "statusLabel": "Draf Baseline",
+        "statusSub": "Belum difinalisasi",
+        "isComplete": true,
+        "completenessLabel": "Lengkap (3/3 Matriks)",
+        "completenessSub": "Scope, Deliverables, Timeline",
+        "approvedBy": null,
+        "approvedAt": null,
+        "simulatorMode": 1,
+        "matrices": {
+            "scope": [
+                {
+                    "rowId": 1,
+                    "code": "MOD-ENG-001",
+                    "module": "Core Gateway Engine / MOD-01",
+                    "moduleTitle": "Core Gateway Engine",
+                    "description": "Spesifikasi microservice API Gateway & Auth filter",
+                    "reviewDescription": "Sentralisasi API Gateway berlatensi rendah (<30ms), reverse proxy multi-tenant, dan otentikasi JWT token mTLS.",
+                    "picRole": "Lead Architect",
+                    "complexity": "High"
+                },
+                {
+                    "rowId": 2,
+                    "code": "MOD-FIN-002",
+                    "module": "Modul Settlement / MOD-02",
+                    "moduleTitle": "Settlement & Ledger Engine",
+                    "description": "Pemrosesan batch settlement D+0 & reversal transaction",
+                    "reviewDescription": "Sinkronisasi neraca keuangan ganda, kliring batch realtime, dan integrasi audit perbankan enterprise.",
+                    "picRole": "Payment Lead",
+                    "complexity": "Medium-High"
+                },
+                {
+                    "rowId": 3,
+                    "code": "MOD-SEC-003",
+                    "module": "Identity & Access Vault / MOD-03",
+                    "moduleTitle": "Identity & Access Vault",
+                    "description": "Manajemen otorisasi RBAC, rotasi kunci kriptografi HSM, dan single sign-on",
+                    "reviewDescription": "Pengelolaan otorisasi peran berjenjang (RBAC), enkripsi kunci HSM, dan pencatatan jejak sesi keamanan terpusat.",
+                    "picRole": "Security Architect",
+                    "complexity": "High"
+                },
+                {
+                    "rowId": 4,
+                    "code": "MOD-RPT-004",
+                    "module": "Regulatory & Audit Hub / MOD-04",
+                    "moduleTitle": "Regulatory & Audit Hub",
+                    "description": "Pipeline agregasi laporan kepatuhan BI-FAST dan ekspor jejak audit otomatis",
+                    "reviewDescription": "Otomatisasi kompilasi laporan kepatuhan transaksi harian, rekonsiliasi anomali, dan pengarsipan dokumen kepatuhan.",
+                    "picRole": "Principal Eng",
+                    "complexity": "Medium-High"
+                },
+                {
+                    "rowId": 5,
+                    "code": "MOD-MON-005",
+                    "module": "Telemetry & Observability / MOD-05",
+                    "moduleTitle": "Telemetry & Observability",
+                    "description": "Pemantauan metrik performa real-time, distributed tracing, dan peringatan SLA",
+                    "reviewDescription": "Agregasi log terdistribusi, pemantauan kuota throughput 5.000 TPS, serta pemicu peringatan dini gangguan layanan.",
+                    "picRole": "DevOps Lead",
+                    "complexity": "Medium"
+                }
+            ],
+            "deliverable": [
+                {
+                    "rowId": 1,
+                    "code": "DEL-ENG-001",
+                    "module": "Core Gateway Engine / MOD-01",
+                    "description": "Dokumen Kontrak OpenAPI 3.0 & Service Proxy mTLS",
+                    "picRole": "Lead Architect",
+                    "complexity": "High"
+                },
+                {
+                    "rowId": 2,
+                    "code": "DEL-FIN-002",
+                    "module": "Modul Settlement / MOD-02",
+                    "description": "Engine Rekonsiliasi Batch D+0 & Laporan Pengujian SIT/UAT",
+                    "picRole": "Payment Lead",
+                    "complexity": "Medium-High"
+                },
+                {
+                    "rowId": 3,
+                    "code": "DEL-SEC-003",
+                    "module": "Identity & Access Vault / MOD-03",
+                    "description": "Modul Middleware OAuth2/JWT & Dokumen Hardening Keamanan",
+                    "picRole": "Security Architect",
+                    "complexity": "High"
+                },
+                {
+                    "rowId": 4,
+                    "code": "DEL-RPT-004",
+                    "module": "Regulatory & Audit Hub / MOD-04",
+                    "description": "Generator Laporan Regulasi PDF/JSON & Skema Data Audit",
+                    "picRole": "Principal Eng",
+                    "complexity": "Medium-High"
+                },
+                {
+                    "rowId": 5,
+                    "code": "DEL-MON-005",
+                    "module": "Telemetry & Observability / MOD-05",
+                    "description": "Dasbor Grafana/Prometheus & Konfigurasi Alerting SLA",
+                    "picRole": "DevOps Lead",
+                    "complexity": "Medium"
+                }
+            ],
+            "timeline": [
+                {
+                    "rowId": 1,
+                    "code": "TML-ENG-001",
+                    "module": "Core Gateway Engine / MOD-01",
+                    "description": "2026-10-19 s/d 2026-10-23 (5 Hari Kerja)",
+                    "startDate": "2026-10-19",
+                    "endDate": "2026-10-23",
+                    "picRole": "Lead Architect",
+                    "complexity": "Fase 1"
+                },
+                {
+                    "rowId": 2,
+                    "code": "TML-FIN-002",
+                    "module": "Modul Settlement / MOD-02",
+                    "description": "2026-10-26 s/d 2026-11-02 (6 Hari Kerja)",
+                    "startDate": "2026-10-26",
+                    "endDate": "2026-11-02",
+                    "picRole": "Payment Lead",
+                    "complexity": "Fase 2"
+                },
+                {
+                    "rowId": 3,
+                    "code": "TML-SEC-003",
+                    "module": "Identity & Access Vault / MOD-03",
+                    "description": "2026-11-03 s/d 2026-11-10 (6 Hari Kerja)",
+                    "startDate": "2026-11-03",
+                    "endDate": "2026-11-10",
+                    "picRole": "Security Architect",
+                    "complexity": "Fase 2"
+                },
+                {
+                    "rowId": 4,
+                    "code": "TML-RPT-004",
+                    "module": "Regulatory & Audit Hub / MOD-04",
+                    "description": "2026-11-11 s/d 2026-11-18 (6 Hari Kerja)",
+                    "startDate": "2026-11-11",
+                    "endDate": "2026-11-18",
+                    "picRole": "Principal Eng",
+                    "complexity": "Fase 3"
+                },
+                {
+                    "rowId": 5,
+                    "code": "TML-MON-005",
+                    "module": "Telemetry & Observability / MOD-05",
+                    "description": "2026-11-19 s/d 2026-11-27 (7 Hari Kerja)",
+                    "startDate": "2026-11-19",
+                    "endDate": "2026-11-27",
+                    "picRole": "DevOps Lead",
+                    "complexity": "Fase 3"
+                }
+            ]
+        }
+    },
+    "projectPlan": {
+        "planId": "401",
+        "plannedDateInput": "10/19/2026",
+        "plannedDate": "2026-10-19",
+        "dueDateH1": "2026-10-16",
+        "dueDayName": "Jumat",
+        "cutoffTime": "23:59:59 WIB",
+        "lastSavedAt": "2026-10-08 14:15:00 WIB",
+        "authorizedBy": "Project Manager"
+    },
+    "plannedDatePresets": [
+        {
+            "label": "Gelombang 1: 19 Okt 2026 (Senin -> H-1 Jumat)",
+            "plannedDateInput": "10/19/2026",
+            "plannedDate": "2026-10-19",
+            "dueDateH1": "2026-10-16",
+            "dueDayName": "Jumat"
+        },
+        {
+            "label": "Gelombang 2: 26 Okt 2026 (Senin -> H-1 Jumat)",
+            "plannedDateInput": "10/26/2026",
+            "plannedDate": "2026-10-26",
+            "dueDateH1": "2026-10-23",
+            "dueDayName": "Jumat"
+        },
+        {
+            "label": "Gelombang 3: 04 Nov 2026 (Rabu -> H-1 Selasa)",
+            "plannedDateInput": "11/04/2026",
+            "plannedDate": "2026-11-04",
+            "dueDateH1": "2026-11-03",
+            "dueDayName": "Selasa"
+        },
+        {
+            "label": "Gelombang 4: 12 Nov 2026 (Kamis -> H-1 Rabu)",
+            "plannedDateInput": "11/12/2026",
+            "plannedDate": "2026-11-12",
+            "dueDateH1": "2026-11-11",
+            "dueDayName": "Rabu"
+        },
+        {
+            "label": "Gelombang 5: 20 Nov 2026 (Jumat -> H-1 Kamis)",
+            "plannedDateInput": "11/20/2026",
+            "plannedDate": "2026-11-20",
+            "dueDateH1": "2026-11-19",
+            "dueDayName": "Kamis"
+        }
+    ],
+    "dummyResources": [
+        {
+            "resourceId": 1,
+            "role": "Lead Architect",
+            "personName": "Tenaga Ahli Dummy 01",
+            "isDummy": true,
+            "module": "Core Gateway Engine / MOD-01",
+            "allocationPercent": 100,
+            "startDate": "2026-10-19",
+            "endDate": "2026-10-23"
+        },
+        {
+            "resourceId": 2,
+            "role": "Payment Lead",
+            "personName": "Tenaga Ahli Dummy 02",
+            "isDummy": true,
+            "module": "Modul Settlement / MOD-02",
+            "allocationPercent": 100,
+            "startDate": "2026-10-26",
+            "endDate": "2026-11-02"
+        },
+        {
+            "resourceId": 3,
+            "role": "Security Architect",
+            "personName": "Tenaga Ahli Dummy 03",
+            "isDummy": true,
+            "module": "Identity & Access Vault / MOD-03",
+            "allocationPercent": 80,
+            "startDate": "2026-11-03",
+            "endDate": "2026-11-10"
+        },
+        {
+            "resourceId": 4,
+            "role": "Principal Eng",
+            "personName": "Tenaga Ahli Dummy 04",
+            "isDummy": true,
+            "module": "Regulatory & Audit Hub / MOD-04",
+            "allocationPercent": 75,
+            "startDate": "2026-11-11",
+            "endDate": "2026-11-18"
+        },
+        {
+            "resourceId": 5,
+            "role": "DevOps Lead",
+            "personName": "Tenaga Ahli Dummy 05",
+            "isDummy": true,
+            "module": "Telemetry & Observability / MOD-05",
+            "allocationPercent": 60,
+            "startDate": "2026-11-19",
+            "endDate": "2026-11-27"
+        }
+    ]
+}
