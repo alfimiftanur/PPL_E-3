@@ -129,4 +129,26 @@ class ProjectWorkflowTest extends TestCase
             ->assertOk()
             ->assertJsonPath('baseline.status', 'APPROVED');
     }
+
+    public function test_overview_page_shows_saved_analysis(): void
+    {
+        $this->postJson('/api/v1/projects/'.self::PROJECT_ID.'/initial-analysis', [
+            'projectNeed' => 'Kebutuhan A',
+            'projectCondition' => 'Kondisi A',
+        ], $this->authHeaders())->assertOk();
+
+        $this->get('/projects/overview')
+            ->assertOk()
+            ->assertSee('Ringkasan Data Tersimpan')
+            ->assertSee('Kebutuhan A')
+            ->assertSee('Kondisi A')
+            ->assertSee('Tersimpan');
+    }
+
+    public function test_overview_page_shows_empty_state_before_save(): void
+    {
+        $this->get('/projects/overview')
+            ->assertOk()
+            ->assertSee('Belum dicatat');
+    }
 }

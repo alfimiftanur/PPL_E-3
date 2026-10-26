@@ -70,6 +70,17 @@ class ProjectWorkflowController extends ProjectEndpoint
         ]);
     }
 
+    public function showOverview(): View
+    {
+        return view('projects.overview', [
+            'activeMenu' => 'overview',
+            'breadcrumb' => 'Ringkasan Data',
+            'breadcrumbSeparator' => '/',
+            'breadcrumbActiveStyle' => 'solid',
+            'state' => $this->workflow->getState(),
+        ]);
+    }
+
     // -------------------------------------------------------------------------
     // REST API Actions (/api/v1/projects/{projectId}/...)
     // -------------------------------------------------------------------------

@@ -102,6 +102,16 @@
                     <span>Tinjau &amp; Persetujuan</span>
                 </a>
 
+                <!-- Ringkasan Data -->
+                @php $isOverview = ($activeMenu ?? '') === 'overview'; @endphp
+                <a href="{{ route('projects.overview') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-[13px] transition-colors {{ $isOverview ? 'bg-nimbus-primary text-white font-semibold shadow-xs' : 'font-medium text-[#334155] hover:bg-slate-100/80' }}">
+                    <svg class="w-4 h-4 {{ $isOverview ? 'text-white' : 'text-[#475569]' }} shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/>
+                        <path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/>
+                    </svg>
+                    <span>Ringkasan Data</span>
+                </a>
+
                 <!-- Resource & RACI -->
                 <a href="#resource-raci" class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-[13px] font-medium text-[#334155] hover:bg-slate-100/80 transition-colors">
                     <svg class="w-4 h-4 text-[#475569] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
