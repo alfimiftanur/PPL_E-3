@@ -1,0 +1,20 @@
+﻿
+ID                                 Status Harap Hasil Catatan                                         
+--                                 ------ ----- ----- -------                                         
+B-00 (awal)                           200   200 LULUS status=Belum dicatat                            
+B-01 Buat                             200   200 LULUS                                                 
+B-02 Lihat                            200   200 LULUS analysisId=1; status=Tersimpan                  
+B-03 Ubah                             200   200 LULUS                                                 
+B-04 Lihat ulang (setelah restart)    200   200 LULUS analysisId=1; createdAt tetap; updatedAt berubah
+B-05 Kasus valid                      200   200 LULUS                                                 
+B-05b Lihat                           200   200 LULUS                                                 
+B-06 Kasus ditolak                    422   422 LULUS VALIDATION_ERROR: Kondisi awal wajib diisi.     
+B-07 Cek data setelah ditolak         200   200 LULUS data tidak berubah                              
+K-01 planning-references              200   200 LULUS baselineId=301; planId=401                      
+K-02 execution-readiness              200   200 LULUS status=COMPLETED; readyForExecution=True        
+K-03 UUID v7 tidak dikenal            404   404 LULUS PROJECT_NOT_FOUND                               
+K-04 bukan UUID v7                    400   400 LULUS INVALID_PROJECT_ID_FORMAT                       
+K-05 tanpa Authorization              401   401 LULUS UNAUTHENTICATED                                 
+
+
+
