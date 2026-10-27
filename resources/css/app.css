@@ -1,0 +1,73 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+:root {
+    --nimbus-primary: #1546c8;
+    --nimbus-primary-hover: #1037a3;
+    --nimbus-primary-soft: #eef4ff;
+    --nimbus-bg: #f7f9fc;
+    --nimbus-surface: #ffffff;
+    --nimbus-subtle: #f8fafc;
+    --nimbus-border: #e6ecf5;
+    --nimbus-ink: #0f172a;
+    --nimbus-slate: #475569;
+    --nimbus-muted: #64748b;
+    --nimbus-success-text: #047857;
+    --nimbus-success-bg: #d1fae5;
+    --nimbus-warning-text: #b45309;
+    --nimbus-warning-bg: #fef3c7;
+    --nimbus-warning-border: #f59e0b;
+    --nimbus-danger-text: #dc2626;
+    --nimbus-danger-bg: #fee2e2;
+}
+
+@theme {
+    --font-sans: 'Inter', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+    --color-nimbus-primary: var(--nimbus-primary);
+    --color-nimbus-primaryHover: var(--nimbus-primary-hover);
+    --color-nimbus-primarySoft: var(--nimbus-primary-soft);
+    --color-nimbus-bg: var(--nimbus-bg);
+    --color-nimbus-surface: var(--nimbus-surface);
+    --color-nimbus-subtle: var(--nimbus-subtle);
+    --color-nimbus-border: var(--nimbus-border);
+    --color-nimbus-ink: var(--nimbus-ink);
+    --color-nimbus-slate: var(--nimbus-slate);
+    --color-nimbus-muted: var(--nimbus-muted);
+    --color-nimbus-successText: var(--nimbus-success-text);
+    --color-nimbus-successBg: var(--nimbus-success-bg);
+    --color-nimbus-warningText: var(--nimbus-warning-text);
+    --color-nimbus-warningBg: var(--nimbus-warning-bg);
+    --color-nimbus-warningBorder: var(--nimbus-warning-border);
+    --color-nimbus-dangerText: var(--nimbus-danger-text);
+    --color-nimbus-dangerBg: var(--nimbus-danger-bg);
+
+    --shadow-card: 0 1px 3px 0 rgba(15, 23, 42, 0.03), 0 1px 2px -1px rgba(15, 23, 42, 0.03);
+}
+
+@layer base {
+    body {
+        background-color: var(--nimbus-bg);
+        color: var(--nimbus-ink);
+        font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    }
+
+    button {
+        cursor: pointer;
+    }
+}
+
+/* Utility to hide scrollbars on horizontal tab bars while preserving touch scrolling */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
