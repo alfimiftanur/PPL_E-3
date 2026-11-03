@@ -1,0 +1,23 @@
+# I-04b: Ringkasan Data saat D-1 dihentikan (tidak terjangkau)
+# Waktu: 2026-11-03 12:17:35 +0700
+# GET http://localhost:8000/projects/overview -> HTTP 200
+
+## Bagian Proyek (teks halaman)
+Proyek
+Data proyek tidak tersedia dari D-1 (D1_UNREACHABLE). Analisis awal di bawah tetap ditampilkan dari state E-3.
+projectId
+01924b1e-7f32-7a81-9b12-45e8a1234567
+Kode proyek
+-
+Nama proyek
+-
+Klien
+-
+Project Manager
+-
+Status proyek
+-
+
+## Log E-3
+[2026-11-03 05:17:32] local.WARNING: D-1 tidak terjangkau {"url":"http://localhost:3000/api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a1234567"} 
+[2026-11-03 05:17:35] local.WARNING: D-1 tidak terjangkau {"url":"http://localhost:3000/api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a1234567"} 

@@ -1,0 +1,6 @@
+# I-04c: workflow_state.json sebelum vs sesudah I-01..I-04b
+# sha256:
+35b1545b16dde158771002ec3a12947dddb5eae304070f58c4d407ba87abc101 *bukti/integrasi/I-04c_workflow_state_sebelum.json
+35b1545b16dde158771002ec3a12947dddb5eae304070f58c4d407ba87abc101 *bukti/integrasi/I-04c_workflow_state_sesudah.json
+
+Hasil: IDENTIK (state E-3 tidak berubah)

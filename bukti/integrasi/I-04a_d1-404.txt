@@ -1,0 +1,15 @@
+# I-04a (sisi D-1): projectId tidak ada
+# Waktu: 2026-11-03 12:16:12 +0700
+$ curl -i -H Authorization: Bearer *** http://localhost:3000/api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a9999999
+
+HTTP/1.1 404 Not Found
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 209
+ETag: W/"d1-SU+0ZXBz35GmXcl0/nVr1ZyTTr8"
+Date: Tue, 03 Nov 2026 05:16:13 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"code":"PROJECT_NOT_FOUND","message":"Data proyek dengan ID/Kode 01924b1e-7f32-7a81-9b12-45e8a9999999 tidak ditemukan di sistem intake","details":{"requestedProjectId":"01924b1e-7f32-7a81-9b12-45e8a9999999"}}

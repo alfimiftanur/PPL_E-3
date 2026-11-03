@@ -1,0 +1,15 @@
+# I-06a: GET project tanpa header Authorization
+# Waktu: 2026-11-03 12:16:12 +0700
+$ curl -i http://localhost:3000/api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a1234567
+
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 1230
+ETag: W/"4ce-/cS5+QLLDwhgp4Oz1Hi/pitmgs0"
+Date: Tue, 03 Nov 2026 05:16:12 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"projectId":"01924b1e-7f32-7a81-9b12-45e8a1234567","canonicalCode":"202601","projectName":"Modernisasi Gedung Operasional","clientId":"CL-001","clientName":"PT Cakra Infrastruktur","amEmployeeId":"SDM-0012","amName":"Andi Maulana","pmEmployeeId":"SDM-0004","pmName":"Budi Santoso","startDate":"2026-03-01","targetEndDate":"2026-08-31","indicativeValue":950000000,"status":"REGISTERED","poReceived":true,"documentsComplete":true,"rejectionNotes":null,"createdAt":"2026-02-15T08:30:00.000Z","updatedAt":"2026-02-18T10:00:00.000Z","auditLogs":[{"auditLogId":"LOG-202601-03","projectId":"01924b1e-7f32-7a81-9b12-45e8a1234567","actorUserId":"SDM-0004","action":"APPROVE","details":"PM menyetujui handover. Kode resmi 202601 diterbitkan.","timestamp":"2026-02-18T10:00:00.000Z"},{"auditLogId":"LOG-202601-02","projectId":"01924b1e-7f32-7a81-9b12-45e8a1234567","actorUserId":"SDM-0012","action":"HANDOVER","details":"AM mengajukan berkas handover untuk peninjauan PM","timestamp":"2026-02-16T09:15:00.000Z"},{"auditLogId":"LOG-202601-01","projectId":"01924b1e-7f32-7a81-9b12-45e8a1234567","actorUserId":"SDM-0012","action":"CREATE_DRAFT","details":"Draf proyek dibuat oleh Account Manager (AM)","timestamp":"2026-02-15T08:30:00.000Z"}]}

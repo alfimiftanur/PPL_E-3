@@ -1,0 +1,21 @@
+# I-04a: Ringkasan Data dengan projectId tidak dikenal D-1
+# Waktu: 2026-11-03 12:16:36 +0700
+# GET http://localhost:8000/projects/overview?projectId=01924b1e-7f32-7a81-9b12-45e8a9999999 -> HTTP 200
+
+## Bagian Proyek (teks halaman)
+Proyek
+Data proyek tidak tersedia dari D-1 (PROJECT_NOT_FOUND). Analisis awal di bawah tetap ditampilkan dari state E-3.
+projectId
+01924b1e-7f32-7a81-9b12-45e8a9999999
+Kode proyek
+-
+Nama proyek
+-
+Klien
+-
+Project Manager
+-
+Status proyek
+-
+
+## Bagian analisis awal tetap tampil: Analisis Awal (ENT-K-E3-01)

@@ -1,0 +1,21 @@
+# I-01/I-03: Ringkasan Data E-3 pada mode real (D-1 hidup)
+# Waktu: 2026-11-03 12:16:34 +0700
+# GET http://localhost:8000/projects/overview -> HTTP 200
+
+## Bagian Proyek (teks halaman)
+Proyek
+Sumber data proyek: D-1 (GET /api/v1/projects/{projectId}), mode nyata.
+projectId
+01924b1e-7f32-7a81-9b12-45e8a1234567
+Kode proyek
+202601
+Nama proyek
+Modernisasi Gedung Operasional
+Klien
+PT Cakra Infrastruktur
+Project Manager
+Budi Santoso
+Status proyek
+REGISTERED
+
+## Bagian analisis awal tetap tampil: Analisis Awal (ENT-K-E3-01)

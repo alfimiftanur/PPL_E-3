@@ -1,0 +1,18 @@
+# I-03b: Jejak panggilan E-3 -> D-1 (waktu UTC di kedua sisi)
+# D-1 dijalankan dengan DEBUG=express:router (log bawaan Express, kode D-1 tidak diubah); D-1 commit df003ce
+
+## Sisi konsumen E-3 (storage/logs/laravel.log, token tidak dicatat)
+[2026-11-03 05:16:34] local.INFO: D-1 GET {"url":"http://localhost:3000/api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a1234567","status":200} 
+[2026-11-03 05:16:34] local.INFO: D-1 GET {"url":"http://localhost:3000/api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a1234567","status":200} 
+[2026-11-03 05:16:35] local.INFO: D-1 GET {"url":"http://localhost:3000/api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a9999999","status":404} 
+[2026-11-03 05:16:36] local.INFO: D-1 GET {"url":"http://localhost:3000/api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a9999999","status":404} 
+
+## Sisi produsen D-1 (terminal server)
+Tue, 03 Nov 2026 05:16:12 GMT express:router dispatching GET /api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a1234567
+Tue, 03 Nov 2026 05:16:12 GMT express:router dispatching GET /api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a1234567
+Tue, 03 Nov 2026 05:16:12 GMT express:router dispatching GET /api/v1/projects/abc
+Tue, 03 Nov 2026 05:16:13 GMT express:router dispatching GET /api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a9999999
+Tue, 03 Nov 2026 05:16:34 GMT express:router dispatching GET /api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a1234567
+Tue, 03 Nov 2026 05:16:34 GMT express:router dispatching GET /api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a1234567
+Tue, 03 Nov 2026 05:16:35 GMT express:router dispatching GET /api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a9999999
+Tue, 03 Nov 2026 05:16:36 GMT express:router dispatching GET /api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a9999999
