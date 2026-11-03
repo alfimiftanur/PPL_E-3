@@ -19,5 +19,3 @@ Diambil 2026-11-03 (sekitar 12:16–12:18 WIB) di satu mesin lokal.
 | I-07 | - | Tidak berlaku: kontrak endpoint ini tidak mendefinisikan 403 |
 
 Temuan tambahan dari respons I-02, dibandingkan dengan skema `ProjectCanonicalResponse` (openapi D-1 v0.2.0): semua 13 field wajib ada, tetapi 5 field di luar skema ikut terkirim: `indicativeValue`, `auditLogs`, `rejectionNotes`, `amName`, `pmName` (INT-03). E-3 hanya mengambil projectId, canonicalCode, projectName, clientName, pmEmployeeId, pmName, status. Catatan: `pmName` yang ditampilkan E-3 **tidak ada di kontrak**, jadi E-3 bergantung pada field di luar kontrak; perlu disepakati dengan D-1 (masukkan `pmName` ke skema) atau nama PM diambil dari F-2 lewat `pmEmployeeId`. `createdAt` bernilai `2026-02-15T08:30:00.000Z` (UTC, bukan +07:00) dan `pmEmployeeId` bernilai `SDM-0004`, bukan UUID v7 (INT-04).
-
-Tangkapan layar (I-01, I-03, I-04a, I-04b) masih perlu diambil manual di peramban.
