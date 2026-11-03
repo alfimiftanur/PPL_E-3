@@ -1,0 +1,83 @@
+CATATAN BUKTI PENGECEKAN SKEMA DATA E-3
+Nama    : Ananda Rizky Maulana
+Tanggal : 28 Oktober 2026
+Acuan   : Skema Data Awal E-3 v0.2
+
+Catatan ini berisi ringkasan pencocokan dokumen dengan berkas proyek,
+dilengkapi pengujian Laravel lokal. Keluaran perintah disimpan di
+bukti/review/pendukung-ananda/hasil-uji-lokal.txt.
+
+U-01 - Data analisis awal
+Hasil: SESUAI
+- Objek initialAnalysis memiliki 10 field sesuai kamus data.
+- analysisId = "1" (string angka).
+- projectId sama dengan project.projectId.
+- Saat belum disimpan: status = "Belum dicatat", isSaved = false.
+- createdBy, createdAt, updatedBy, updatedAt masih null pada keadaan awal.
+- Test lokal juga lulus untuk kesamaan projectId, termasuk normalisasi state lama.
+
+U-02 - Validasi isian
+Hasil: SESUAI BERDASARKAN KODE DAN TEST LOKAL
+- projectNeed dan projectCondition tidak boleh kosong.
+- Controller menyiapkan pesan wajib isi dan respons 422 jika input kosong.
+- Test lokal membuktikan respons 422 dan kedua pesan wajib isi, serta simpan input valid.
+
+U-03 - Data saat dibuat dan diubah
+Hasil: SESUAI BERDASARKAN BUKTI SEBELUMNYA
+Sumber: bukti/berhasil/state-setelah-buat.json dan state-setelah-ubah.json
+- createdAt sebelum : 2026-10-26 21:07:18 WIB
+- createdAt sesudah : 2026-10-26 21:07:18 WIB (tetap)
+- updatedAt sebelum : 2026-10-26 21:07:18 WIB
+- updatedAt sesudah : 2026-10-26 21:07:20 WIB (berubah)
+- Data setelah penolakan tidak berubah dari data terakhir yang tersimpan.
+Catatan: bukti lama ini belum memuat projectId di dalam initialAnalysis.
+Tambahan test lokal: createdAt dan createdBy tetap saat diubah, isi berubah,
+dan analysisId tetap. Perubahan updatedAt masih merujuk bukti lama di atas.
+
+U-04 - Tipe ID
+Hasil: SESUAI PADA DATA YANG DIGUNAKAN, ADA CATATAN RANCANGAN
+- analysisId = "1"; baselineId = "301"; planId = "401" (string angka).
+- resourceId pada dummyResources berupa angka.
+- projectId mengikuti format UUID v7 milik D-1, tetapi data proyek pada demo masih menggunakan mock.
+- Pada kamus data, planId di Kickoff dan baselineId di Technical Plan
+  masih tertulis bigint. Bagian tersebut masih berupa rancangan.
+
+U-05 - Baseline dan project plan
+Hasil: SESUAI DENGAN KETERANGAN DOKUMEN
+- Baseline menyimpan tiga matriks: scope, deliverable, timeline.
+- saveBaseline belum menambah nomor versi secara otomatis.
+- Project plan menyimpan tanggal rencana, H-1, dan informasi pendukung.
+- Empat bagian project plan dan beberapa referensi belum tersimpan di JSON aktif.
+- Test lokal perhitungan H-1 hari kerja dan alur persetujuan baseline lulus.
+
+U-06 - Kontrak API
+Hasil: SESUAI BERDASARKAN BERKAS DAN TEST LOKAL
+- openapi.yaml E-3 versi 0.2.0 memuat execution-readiness dan planning-references.
+- API kontrak membaca data/seed.json.
+- Halaman workflow menggunakan data/ui_seed.json dan storage/app/workflow_state.json.
+- Test kedua endpoint kontrak lulus: respons contoh serta status 200, 400, 401, dan 404.
+- Integrasi langsung F-1, F-2, dan D-1 belum diuji di sini.
+
+PEMBANDING DARI ALFI (BUKAN PENGUJIAN ANANDA)
+Sumber: bukti/review/hasil-uji-ulang-alfi.txt
+Tanggal uji Alfi: 27 Oktober 2026
+- Pengujian buat, ubah, validasi, dan endpoint kontrak dilaporkan lulus.
+- php artisan test: 19 test lulus, 95 assertions.
+
+KESIMPULAN
+Dokumen v0.2 pada umumnya sudah cocok dengan data dan alur yang tersedia.
+Dua perbedaan tipe referensi pada bagian rancangan tetap dicatat.
+Pengujian lokal mendukung hasil pencocokan; kode aplikasi tidak diubah.
+
+PENGUJIAN LOKAL TAMBAHAN
+Tanggal: 28 Oktober 2026, 16:02:05-16:02:09 WIB
+Branch: dev; commit: bab2601538ed0f5d615139beac3cfecbd6d30004
+PHP: 8.4.14
+php artisan test --filter=ApiContractTest
+Hasil: 10 test lulus, 22 assertions; exit code 0.
+php artisan test --filter=ProjectWorkflowTest
+Hasil: 9 test lulus, 73 assertions; exit code 0.
+Total: 19 test lulus, 95 assertions.
+Bukti: bukti/review/pendukung-ananda/hasil-uji-lokal.txt
+File state sebelum uji belum ada; file hasil uji dihapus agar kembali seperti semula.
+Ini pengujian aplikasi lokal, belum membuktikan integrasi langsung F-1/F-2/D-1.
