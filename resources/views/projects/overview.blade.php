@@ -18,13 +18,22 @@
         </h1>
         <p class="text-[13.5px] text-nimbus-slate leading-relaxed mt-1.5">
             Halaman baca saja untuk melihat data yang sudah disimpan pada alur analisis awal, baseline, dan tanggal rencana.
-            Sumber: state tampilan (storage/app/workflow_state.json).
+            Sumber: state tampilan (storage/app/workflow_state.json); data proyek dari D-1 bila D1_MODE=real.
         </p>
     </div>
 
     <!-- PROYEK -->
     <section class="bg-white border border-nimbus-border rounded-xl p-6 mt-6 shadow-card">
         <h2 class="text-[15px] font-display font-bold text-nimbus-ink">Proyek</h2>
+        @if (! empty($d1))
+            @if ($d1['ok'])
+                <p class="text-[12px] text-nimbus-slate mt-2">Sumber data proyek: D-1 (GET /api/v1/projects/{projectId}), mode nyata.</p>
+            @else
+                <p class="text-[12.5px] text-[#b45309] bg-[#fef3c7] border border-[#f59e0b]/60 rounded-lg px-3 py-2 mt-3">
+                    Data proyek tidak tersedia dari D-1 ({{ $d1['code'] }}). Analisis awal di bawah tetap ditampilkan dari state E-3.
+                </p>
+            @endif
+        @endif
         <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 mt-4">
             <div>
                 <dt class="text-[11px] font-semibold tracking-[0.06em] text-nimbus-muted uppercase">projectId</dt>
@@ -41,6 +50,14 @@
             <div>
                 <dt class="text-[11px] font-semibold tracking-[0.06em] text-nimbus-muted uppercase">Klien</dt>
                 <dd class="text-[13.5px] text-nimbus-ink mt-1">{{ $val($project['clientName'] ?? null) }}</dd>
+            </div>
+            <div>
+                <dt class="text-[11px] font-semibold tracking-[0.06em] text-nimbus-muted uppercase">Project Manager</dt>
+                <dd class="text-[13.5px] text-nimbus-ink mt-1">{{ $val($project['pmName'] ?? null) }}</dd>
+            </div>
+            <div>
+                <dt class="text-[11px] font-semibold tracking-[0.06em] text-nimbus-muted uppercase">Status proyek</dt>
+                <dd class="text-[13.5px] text-nimbus-ink mt-1">{{ $val($project['status'] ?? ($project['intakeStatus'] ?? null)) }}</dd>
             </div>
         </dl>
     </section>

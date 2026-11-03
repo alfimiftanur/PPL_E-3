@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\D1ProjectClient;
 use App\Services\ProjectData;
 use App\Services\ProjectWorkflowService;
 use Illuminate\Http\JsonResponse;
@@ -12,7 +13,8 @@ class ProjectWorkflowController extends ProjectEndpoint
 {
     public function __construct(
         ProjectData $data,
-        private readonly ProjectWorkflowService $workflow
+        private readonly ProjectWorkflowService $workflow,
+        private readonly D1ProjectClient $d1
     ) {
         parent::__construct($data);
     }
@@ -70,14 +72,34 @@ class ProjectWorkflowController extends ProjectEndpoint
         ]);
     }
 
-    public function showOverview(): View
+    public function showOverview(Request $request): View
     {
+        $state = $this->workflow->getState();
+        $d1 = null;
+
+        if ($this->d1->isReal()) {
+            $projectId = (string) ($state['project']['projectId'] ?? ProjectWorkflowService::DEFAULT_PROJECT_ID);
+
+            // Hanya untuk uji kasus gagal di lingkungan lokal (bukti I-04).
+            if (app()->environment('local') && $request->filled('projectId')) {
+                $projectId = (string) $request->query('projectId');
+            }
+
+            $d1 = $this->d1->find($projectId);
+
+            // Tidak disimpan ke workflow_state.json; hanya untuk tampilan ini.
+            $state['project'] = $d1['ok']
+                ? array_merge($state['project'] ?? [], $d1['project'])
+                : ['projectId' => $projectId];
+        }
+
         return view('projects.overview', [
             'activeMenu' => 'overview',
             'breadcrumb' => 'Ringkasan Data',
             'breadcrumbSeparator' => '/',
             'breadcrumbActiveStyle' => 'solid',
-            'state' => $this->workflow->getState(),
+            'state' => $state,
+            'd1' => $d1,
         ]);
     }
 

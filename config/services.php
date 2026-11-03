@@ -40,4 +40,12 @@ return [
         'mock_token' => env('MOCK_TOKEN', 'mock-token'),
     ],
 
+    // Integrasi D-1 (API 7, API-K01-07). mode: mock (data/ui_seed.json) atau real (panggil D-1).
+    'd1' => [
+        'mode' => env('D1_MODE', 'mock'),
+        'base_url' => env('D1_BASE_URL', 'http://localhost:3000/api/v1'),
+        'timeout' => (int) env('D1_TIMEOUT', 3),
+        'token' => env('D1_TOKEN', env('MOCK_TOKEN', 'mock-token')),
+    ],
+
 ];
