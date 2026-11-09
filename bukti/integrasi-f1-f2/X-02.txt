@@ -1,0 +1,14 @@
+=== X-02  GET http://localhost:8000/api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a1234567/execution-readiness
+Token: eyJ...[disamarkan]
+2026-11-09T17:54:30.5436021+07:00
+
+HTTP/1.1 401 Unauthorized
+Host: localhost:8000
+Connection: close
+X-Powered-By: PHP/8.4.15
+Cache-Control: no-cache, private
+Date: Mon, 09 Nov 2026 10:54:30 GMT
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+
+{"code":"UNAUTHENTICATED","message":"Token tidak ada atau tidak valid."}

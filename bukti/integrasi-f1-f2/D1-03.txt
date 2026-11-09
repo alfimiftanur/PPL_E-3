@@ -1,0 +1,15 @@
+=== D1-03  GET http://localhost:3000/api/v1/projects/abc
+Token: mock-token
+2026-11-09T17:53:40.9810210+07:00
+
+HTTP/1.1 400 Bad Request
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 154
+ETag: W/"9a-jDG4ba5fT/WRuyWGb8+Z9VE7q78"
+Date: Mon, 09 Nov 2026 10:53:40 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"code":"INVALID_PROJECT_ID_FORMAT","message":"Format projectId 'abc' tidak valid. Parameter harus berupa UUID v7","details":{"requestedProjectId":"abc"}}

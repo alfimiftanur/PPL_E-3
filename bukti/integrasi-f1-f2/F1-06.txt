@@ -1,0 +1,16 @@
+=== F1-06  POST http://127.0.0.1:4100/auth/login
+Token: (tanpa token)
+Body: {"emailOrUsername":"icha.aprilia","password":"Password123!"}
+2026-11-09T17:54:01.3542281+07:00
+
+HTTP/1.1 403 Forbidden
+Content-Type: application/json
+Date: Mon, 09 Nov 2026 10:54:01 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{
+  "code": "ACCOUNT_INACTIVE",
+  "message": "Akun nonaktif, hubungi admin."
+}

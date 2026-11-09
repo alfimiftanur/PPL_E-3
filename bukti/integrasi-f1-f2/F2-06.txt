@@ -1,0 +1,16 @@
+=== F2-06  POST http://localhost:8080/api/v1/sdm
+Token: token-coo
+Body: {"nomorPegawai":"SDM-0004","namaLengkap":"Budi Santoso","jabatanId":"01929b4a-83a1-7d55-8b12-9f7c2e4a6b10","statusKerja":"karyawan"}
+2026-11-09T17:54:30.1020360+07:00
+
+HTTP/1.1 201 Created
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 271
+ETag: W/"10f-aSQbhhuXzfbrx3sukJhv7Q1ykHI"
+Date: Mon, 09 Nov 2026 10:54:30 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"employeeId":"01a1bff1-fecf-7eea-9e0c-bbbeb95e9de6","nomorPegawai":"SDM-0004","namaLengkap":"Budi Santoso","jabatanId":"01929b4a-83a1-7d55-8b12-9f7c2e4a6b10","statusKerja":"karyawan","email":null,"nomorTelepon":null,"alamat":null,"dibuatPada":"2026-11-09T10:54:30.097Z"}

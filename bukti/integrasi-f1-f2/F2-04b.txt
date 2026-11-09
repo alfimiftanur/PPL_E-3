@@ -1,0 +1,15 @@
+=== F2-04b  GET http://localhost:8080/api/v1/referensi/sdm/01929b4a-5f10-7a22-9d44-3c8f1b2e7a01
+Token: token-coo
+2026-11-09T17:54:29.9874380+07:00
+
+HTTP/1.1 404 Not Found
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 43
+ETag: W/"2b-Ie7J3NtEgGSH/C5msIKlF/O07MA"
+Date: Mon, 09 Nov 2026 10:54:29 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"code":404,"message":"EMPLOYEE_NOT_FOUND"}

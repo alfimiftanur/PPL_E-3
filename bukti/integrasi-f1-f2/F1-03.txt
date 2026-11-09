@@ -1,0 +1,19 @@
+=== F1-03  GET http://127.0.0.1:4100/identity/accounts/01929b4a-6e2a-7b3f-8c71-0ab4e3d9f2a1
+Token: eyJ...[disamarkan]
+2026-11-09T17:54:01.2051485+07:00
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+Date: Mon, 09 Nov 2026 10:54:01 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{
+  "accountId": "01929b4a-6e2a-7b3f-8c71-0ab4e3d9f2a1",
+  "employeeId": "01929b4a-5f10-7a22-9d44-3c8f1b2e7a9f",
+  "name": "Super Admin",
+  "roleCode": "ADMIN",
+  "position": null,
+  "status": "active"
+}

@@ -1,0 +1,22 @@
+=== F1-09  POST http://127.0.0.1:4100/accounts
+Token: eyJ...[disamarkan]
+Body: {"employeeId":"z","roleCode":"PM","username":"demo.pm"}
+2026-11-09T17:54:01.5634435+07:00
+
+HTTP/1.1 201 Created
+Content-Type: application/json
+Date: Mon, 09 Nov 2026 10:54:01 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{
+  "accountId": "01a1bff1-8f54-7ac9-9c38-4074666dc79d",
+  "employeeId": "z",
+  "username": "demo.pm",
+  "email": "demo.pm@anaheimnimbus.co.id",
+  "name": "Pegawai Baru (Demo)",
+  "roleCode": "PM",
+  "status": "active",
+  "createdAt": "2026-11-09T10:54:01.556Z"
+}

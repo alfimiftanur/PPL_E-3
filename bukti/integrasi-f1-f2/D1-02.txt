@@ -1,0 +1,15 @@
+=== D1-02  GET http://localhost:3000/api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a1234567
+Token: (tanpa token)
+2026-11-09T17:53:40.9282461+07:00
+
+HTTP/1.1 401 Unauthorized
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 138
+ETag: W/"8a-0BAtXFhMju2VBfnSXxjtdllaMcs"
+Date: Mon, 09 Nov 2026 10:53:40 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"code":"UNAUTHORIZED","message":"Akses ditolak: Header Authorization Bearer token wajib disertakan","details":{"header":"Authorization"}}

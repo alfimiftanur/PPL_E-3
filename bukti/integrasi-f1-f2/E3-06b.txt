@@ -1,0 +1,15 @@
+=== E3-06b  POST http://localhost:8000/api/v1/projects/01924b1e-7f32-7a81-9b12-45e8a1234567/initial-analysis
+Token: mock-token
+Body: {"projectNeed":"Migrasi core transaction ke microservices","projectCondition":"Server CentOS 9 Stream siap"}
+2026-11-09T17:55:29.1007781+07:00
+
+HTTP/1.1 200 OK
+Host: localhost:8000
+Connection: close
+X-Powered-By: PHP/8.4.15
+Cache-Control: no-cache, private
+Date: Mon, 09 Nov 2026 10:55:29 GMT
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+
+{"message":"Analisis awal tersimpan.","initialAnalysis":{"analysisId":"1","projectId":"01924b1e-7f32-7a81-9b12-45e8a1234567","projectNeed":"Migrasi core transaction ke microservices","projectCondition":"Server CentOS 9 Stream siap","status":"Tersimpan","isSaved":true,"createdBy":"01924b1e-7f32-7c40-8a01-9c0010100101","createdAt":"2026-11-09 17:55:29 WIB","updatedBy":"01924b1e-7f32-7c40-8a01-9c0010100101","updatedAt":"2026-11-09 17:55:29 WIB"}}

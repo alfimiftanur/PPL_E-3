@@ -1,0 +1,16 @@
+=== F1-10  GET http://127.0.0.1:4100/accounts/01929b4a-6e2a-7b3f-8c71-0ab4e3d9f2a1/role
+Token: eyJ...[disamarkan]
+2026-11-09T17:54:01.6705901+07:00
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+Date: Mon, 09 Nov 2026 10:54:01 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{
+  "accountId": "01929b4a-6e2a-7b3f-8c71-0ab4e3d9f2a1",
+  "roleCode": "ADMIN",
+  "status": "active"
+}

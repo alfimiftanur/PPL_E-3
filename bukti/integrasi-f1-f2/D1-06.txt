@@ -1,0 +1,14 @@
+=== D1-06  GET http://localhost:8000/projects/overview
+D-1 dihentikan (proses node port 3000 dimatikan; port 3000 tidak lagi listen)
+2026-11-09T17:59:18.2961678+07:00
+HTTP 200
+sha256 state sebelum=6C930BD8B9486A556FA3B5F2ACC89C8CD5AB655A76A2E0D32952C383A7FE3BBB
+sha256 state sesudah=6C930BD8B9486A556FA3B5F2ACC89C8CD5AB655A76A2E0D32952C383A7FE3BBB
+sama=True
+
+Kutipan teks halaman:
+[Sumber data proyek] (tidak ada)
+[D1_UNREACHABLE] (storage/app/workflow_state.json); data proyek dari D-1 bila D1_MODE=real. Proyek Data proyek tidak tersedia dari D-1 (D1_UNREACHABLE). Analisis awal di bawah tetap ditampilkan dari state E-3. projectId 01924b1e-7f32-7a81-9b12-45e8a1234567 Kode proyek - Nama proyek - Klien - Project Manager -
+[202601] (tidak ada)
+[Implementasi Sistem ERP] (tidak ada)
+[Nimbus Core] (tidak ada)

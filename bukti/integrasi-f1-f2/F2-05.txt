@@ -1,0 +1,15 @@
+=== F2-05  GET http://localhost:8080/api/v1/sdm
+Token: token-karyawan
+2026-11-09T17:54:30.0344437+07:00
+
+HTTP/1.1 403 Forbidden
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 69
+ETag: W/"45-qEQct0AQQYTrBZw1NHRsbFYKKhQ"
+Date: Mon, 09 Nov 2026 10:54:30 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"code":403,"message":"Anda tidak memiliki izin mengakses data ini."}
