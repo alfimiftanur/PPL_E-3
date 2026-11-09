@@ -1,6 +1,0 @@
-=== F1-02  decode JWT F-1 akun super.admin (token utuh tidak disimpan)
-2026-11-09T17:54:29.6959389+07:00
-
-HEADER : {"alg":"HS256","typ":"JWT"}
-PAYLOAD: {"accountId":"01929b4a-6e2a-7b3f-8c71-0ab4e3d9f2a1","roleCode":"ADMIN","iat":1794221669,"exp":1794225269}
-Signature: [tidak ditampilkan]
