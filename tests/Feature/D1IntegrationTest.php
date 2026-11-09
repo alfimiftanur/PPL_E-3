@@ -24,20 +24,23 @@ class D1IntegrationTest extends TestCase
         Http::fake(['d1.test/*' => Http::response([
             'projectId' => self::ID,
             'canonicalCode' => '202601',
-            'projectName' => 'Modernisasi Gedung Operasional',
-            'clientName' => 'PT Cakra Infrastruktur',
-            'pmEmployeeId' => 'SDM-0004',
-            'pmName' => 'Budi Santoso',
+            'projectName' => 'Implementasi Sistem ERP Cloud Phase 1',
+            'clientName' => 'PT Fikri Solusi Mandiri',
+            'amEmployeeId' => '01929b4a-6e2a-7b3f-8c71-0ab4e3d9f2a1',
+            'amName' => 'Fikri Lazuardi Fadilla',
+            'pmEmployeeId' => '01929b4a-5f10-7a22-9d44-3c8f1b2e7a01',
+            'pmName' => 'Haekal Khadafy',
             'status' => 'REGISTERED',
+            'active' => true,
             'indicativeValue' => 950000000,
             'auditLogs' => [],
         ], 200)]);
 
         $this->get('/projects/overview')
             ->assertOk()
-            ->assertSee('Modernisasi Gedung Operasional')
-            ->assertSee('PT Cakra Infrastruktur')
-            ->assertSee('Budi Santoso')
+            ->assertSee('Implementasi Sistem ERP Cloud Phase 1')
+            ->assertSee('PT Fikri Solusi Mandiri')
+            ->assertSee('Haekal Khadafy')
             ->assertDontSee('950000000');
 
         Http::assertSent(fn ($r) => $r->url() === 'http://d1.test/api/v1/projects/'.self::ID && $r->hasHeader('Authorization'));

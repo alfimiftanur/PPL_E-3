@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Log;
  */
 class D1ProjectClient
 {
-    private const FIELDS = ['projectId', 'canonicalCode', 'projectName', 'clientName', 'pmEmployeeId', 'pmName', 'status'];
+    private const FIELDS = ['projectId', 'canonicalCode', 'projectName', 'clientName', 'pmEmployeeId', 'pmName', 'status', 'active', 'amName'];
 
     public function isReal(): bool
     {

@@ -73,7 +73,29 @@
       "projectId": "01924b1e-7f32-7a81-9b12-45e8a1234567",
       "version": 1,
       "status": "APPROVED",
-      "approvedAt": "2026-10-14T10:00:00+07:00"
+      "approvedAt": "2026-10-14T10:00:00+07:00",
+      "items": [
+        {
+          "baselineItemId": "01924b1e-7f32-7b01-8c01-111111111111",
+          "name": "Modul Registrasi & Rekam Medis Pasien",
+          "type": "SCOPE"
+        },
+        {
+          "baselineItemId": "01924b1e-7f32-7b01-8c01-222222222222",
+          "name": "Integrasi Modul Farmasi & Kasir",
+          "type": "SCOPE"
+        },
+        {
+          "baselineItemId": "01924b1e-7f32-7b01-8c01-333333333333",
+          "name": "Fase Desain & Persiapan Lingkungan",
+          "type": "TIMELINE"
+        },
+        {
+          "baselineItemId": "01924b1e-7f32-7b01-8c01-444444444444",
+          "name": "Fase Implementasi & Pengujian UAT",
+          "type": "TIMELINE"
+        }
+      ]
     },
     {
       "id": 302,
@@ -101,7 +123,29 @@
     {
       "id": 401,
       "projectId": "01924b1e-7f32-7a81-9b12-45e8a1234567",
-      "baselineId": 301
+      "baselineId": 301,
+      "targetProgress": [
+        {
+          "date": "2026-10-20",
+          "progress": 15
+        },
+        {
+          "date": "2026-10-27",
+          "progress": 35
+        },
+        {
+          "date": "2026-11-03",
+          "progress": 60
+        },
+        {
+          "date": "2026-11-10",
+          "progress": 85
+        },
+        {
+          "date": "2026-11-17",
+          "progress": 100
+        }
+      ]
     },
     {
       "id": 402,

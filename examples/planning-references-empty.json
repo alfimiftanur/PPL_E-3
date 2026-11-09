@@ -3,5 +3,7 @@
   "baselineId": null,
   "baselineVersion": null,
   "approvedAt": null,
-  "planId": null
+  "planId": null,
+  "baselineItems": [],
+  "targetProgress": []
 }
