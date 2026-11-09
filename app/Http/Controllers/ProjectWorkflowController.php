@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\D1ProjectClient;
+use App\Services\F2SdmClient;
 use App\Services\ProjectData;
 use App\Services\ProjectWorkflowService;
 use Illuminate\Http\JsonResponse;
@@ -14,7 +15,8 @@ class ProjectWorkflowController extends ProjectEndpoint
     public function __construct(
         ProjectData $data,
         private readonly ProjectWorkflowService $workflow,
-        private readonly D1ProjectClient $d1
+        private readonly D1ProjectClient $d1,
+        private readonly F2SdmClient $f2
     ) {
         parent::__construct($data);
     }
@@ -76,6 +78,7 @@ class ProjectWorkflowController extends ProjectEndpoint
     {
         $state = $this->workflow->getState();
         $d1 = null;
+        $f2 = null;
 
         if ($this->d1->isReal()) {
             $projectId = (string) ($state['project']['projectId'] ?? ProjectWorkflowService::DEFAULT_PROJECT_ID);
@@ -93,6 +96,18 @@ class ProjectWorkflowController extends ProjectEndpoint
                 : ['projectId' => $projectId];
         }
 
+        if ($this->f2->isReal()) {
+            $pmEmployeeId = (string) ($state['project']['pmEmployeeId'] ?? $state['project']['pmUserId'] ?? '');
+            if ($pmEmployeeId !== '') {
+                $f2 = $this->f2->find($pmEmployeeId);
+                if ($f2['ok']) {
+                    // Perkaya informasi nama PM dan jabatan resmi dari F-2
+                    $state['project']['pmName'] = $f2['employee']['namaLengkap'];
+                    $state['project']['pmRole'] = $f2['employee']['namaJabatan'];
+                }
+            }
+        }
+
         return view('projects.overview', [
             'activeMenu' => 'overview',
             'breadcrumb' => 'Ringkasan Data',
@@ -100,6 +115,7 @@ class ProjectWorkflowController extends ProjectEndpoint
             'breadcrumbActiveStyle' => 'solid',
             'state' => $state,
             'd1' => $d1,
+            'f2' => $f2,
         ]);
     }
 

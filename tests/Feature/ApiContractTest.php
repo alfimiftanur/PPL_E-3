@@ -74,4 +74,32 @@ class ApiContractTest extends TestCase
     {
         $this->api(self::READY, 'planning-references', false)->assertUnauthorized();
     }
+
+    public function test_api02_memuat_baseline_items_dan_target_progress_untuk_e5(): void
+    {
+        $response = $this->api(self::READY, 'planning-references')->assertOk();
+
+        $response->assertJsonStructure([
+            'projectId',
+            'baselineId',
+            'baselineVersion',
+            'approvedAt',
+            'planId',
+            'baselineItems' => [
+                '*' => ['baselineItemId', 'name', 'type'],
+            ],
+            'targetProgress' => [
+                '*' => ['date', 'progress'],
+            ],
+        ]);
+
+        $items = $response->json('baselineItems');
+        $this->assertNotEmpty($items);
+        $this->assertContains('SCOPE', array_column($items, 'type'));
+        $this->assertContains('TIMELINE', array_column($items, 'type'));
+
+        $targets = $response->json('targetProgress');
+        $this->assertNotEmpty($targets);
+        $this->assertSame(100, end($targets)['progress']);
+    }
 }

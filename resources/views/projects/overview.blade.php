@@ -34,6 +34,15 @@
                 </p>
             @endif
         @endif
+        @if (! empty($f2))
+            @if ($f2['ok'])
+                <p class="text-[12px] text-nimbus-slate mt-1">Sumber data SDM: F-2 (GET /api/v1/referensi/sdm/{employeeId}), mode nyata.</p>
+            @else
+                <p class="text-[12.5px] text-[#b45309] bg-[#fef3c7] border border-[#f59e0b]/60 rounded-lg px-3 py-2 mt-2">
+                    Referensi SDM F-2 tidak terjangkau ({{ $f2['code'] }}).
+                </p>
+            @endif
+        @endif
         <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 mt-4">
             <div>
                 <dt class="text-[11px] font-semibold tracking-[0.06em] text-nimbus-muted uppercase">projectId</dt>

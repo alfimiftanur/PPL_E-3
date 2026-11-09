@@ -48,4 +48,19 @@ return [
         'token' => env('D1_TOKEN', env('MOCK_TOKEN', 'mock-token')),
     ],
 
+    // Integrasi F-1 (Identitas & Hak Akses). mode: mock (MOCK_TOKEN) atau real (verifikasi JWT HS256).
+    'f1' => [
+        'mode' => env('F1_MODE', 'mock'),
+        'base_url' => env('F1_BASE_URL', 'http://localhost:4100'),
+        'jwt_secret' => env('F1_JWT_SECRET', 'ganti-dengan-rahasia-acak-minimal-32-karakter'),
+    ],
+
+    // Integrasi F-2 (Master SDM & Tenaga Ahli). mode: mock atau real (panggil API-K02-17).
+    'f2' => [
+        'mode' => env('F2_MODE', 'mock'),
+        'base_url' => env('F2_BASE_URL', 'http://localhost:8080/api/v1'),
+        'timeout' => (int) env('F2_TIMEOUT', 3),
+        'token' => env('F2_TOKEN', 'token-coo'),
+    ],
+
 ];

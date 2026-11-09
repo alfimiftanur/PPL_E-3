@@ -64,6 +64,8 @@ class ProjectData
             'baselineVersion' => $baseline['version'] ?? null,
             'approvedAt' => $baseline['approvedAt'] ?? null,
             'planId' => $plan ? (string) $plan['id'] : null,
+            'baselineItems' => $baseline['items'] ?? [],
+            'targetProgress' => $plan['targetProgress'] ?? [],
         ];
     }
 

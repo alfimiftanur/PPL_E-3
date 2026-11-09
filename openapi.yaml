@@ -1,15 +1,13 @@
 openapi: 3.0.3
 info:
   title: E-3 Planning and Execution Readiness API
-  version: 0.2.0
+  version: 0.3.0
   description: >
     Kontrak API kelompok E-3 (Analisis, Baseline, dan Perencanaan Proyek), ERP PT. Anaheim Nimbus Universal.
-    Versi 0.2.0 memuat spesifikasi kesiapan eksekusi (E-4), rujukan baseline dan project plan (E-5, D-3),
-    operasi Analisis Awal Proyek (POST & DELETE initial-analysis), endpoint Ringkasan State (GET overview),
-    pembaruan entitas ENT-K-E3-01 (projectId, createdBy, createdAt), serta penambahan respon error validasi 422 (VALIDATION_ERROR).
-    Operasi untuk konsumen E-4 (API-K-E3-01): membaca kesiapan eksekusi proyek dari status MoM kickoff.
-    Operasi untuk E-5 dan D-3 (API-K-E3-02): membaca ID baseline yang disetujui dan ID project plan.
-    Seluruh contoh adalah data fiktif.
+    Versi 0.3.0 menambahkan daftar rincian item baseline (baselineItems: baselineItemId, name, type: SCOPE/TIMELINE)
+    dan target progres kumulatif rencana (targetProgress: date, progress) pada API-K-E3-02 atas permintaan modul tata kelola E-5.
+    Memuat pula spesifikasi kesiapan eksekusi (E-4, API-K-E3-01), operasi Analisis Awal Proyek (POST & DELETE initial-analysis),
+    dan endpoint Ringkasan State (GET overview). Seluruh contoh adalah data fiktif.
   contact:
     name: Kelompok E-3
 servers:
@@ -285,6 +283,30 @@ paths:
                     baselineVersion: 1
                     approvedAt: '2026-10-14T10:00:00+07:00'
                     planId: '401'
+                    baselineItems:
+                      - baselineItemId: 01924b1e-7f32-7b01-8c01-111111111111
+                        name: Modul Registrasi & Rekam Medis Pasien
+                        type: SCOPE
+                      - baselineItemId: 01924b1e-7f32-7b01-8c01-222222222222
+                        name: Integrasi Modul Farmasi & Kasir
+                        type: SCOPE
+                      - baselineItemId: 01924b1e-7f32-7b01-8c01-333333333333
+                        name: Fase Desain & Persiapan Lingkungan
+                        type: TIMELINE
+                      - baselineItemId: 01924b1e-7f32-7b01-8c01-444444444444
+                        name: Fase Implementasi & Pengujian UAT
+                        type: TIMELINE
+                    targetProgress:
+                      - date: "2026-10-20"
+                        progress: 15
+                      - date: "2026-10-27"
+                        progress: 35
+                      - date: "2026-11-03"
+                        progress: 60
+                      - date: "2026-11-10"
+                        progress: 85
+                      - date: "2026-11-17"
+                        progress: 100
                 kosong:
                   summary: Belum ada baseline APPROVED dan project plan (examples/planning-references-empty.json)
                   value:
@@ -293,6 +315,8 @@ paths:
                     baselineVersion: null
                     approvedAt: null
                     planId: null
+                    baselineItems: []
+                    targetProgress: []
         '400':
           $ref: '#/components/responses/InvalidRequest'
         '401':
@@ -416,7 +440,7 @@ components:
 
     PlanningReferences:
       type: object
-      required: [projectId, baselineId, baselineVersion, approvedAt, planId]
+      required: [projectId, baselineId, baselineVersion, approvedAt, planId, baselineItems, targetProgress]
       properties:
         projectId:
           type: string
@@ -446,6 +470,50 @@ components:
           pattern: '^[0-9]+$'
           description: ID project plan (ENT-K-E3-03), string angka. Null bila project plan belum dibuat.
           example: '401'
+        baselineItems:
+          type: array
+          description: Daftar rincian item scope dan timeline baseline untuk acuan Change Request modul E-5.
+          items:
+            $ref: '#/components/schemas/BaselineItem'
+        targetProgress:
+          type: array
+          description: Target progres kumulatif rencana berkala untuk evaluasi keterlambatan proyek modul E-5.
+          items:
+            $ref: '#/components/schemas/TargetProgressItem'
+
+    BaselineItem:
+      type: object
+      required: [baselineItemId, name, type]
+      properties:
+        baselineItemId:
+          type: string
+          description: ID unik item baseline (string UUID v7).
+          example: 01924b1e-7f32-7b01-8c01-111111111111
+        name:
+          type: string
+          description: Nama rincian scope atau tahapan timeline baseline.
+          example: Modul Registrasi & Rekam Medis Pasien
+        type:
+          type: string
+          enum: [SCOPE, TIMELINE]
+          description: Tipe kategori item baseline untuk penandaan Change Request E-5.
+          example: SCOPE
+
+    TargetProgressItem:
+      type: object
+      required: [date, progress]
+      properties:
+        date:
+          type: string
+          format: date
+          description: Tanggal checkpoint evaluasi progres rencana (format YYYY-MM-DD).
+          example: "2026-10-27"
+        progress:
+          type: number
+          minimum: 0
+          maximum: 100
+          description: Target persentase penyelesaian kumulatif pada tanggal tersebut.
+          example: 35
 
     ValidationError:
       type: object
