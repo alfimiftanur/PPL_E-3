@@ -2,9 +2,16 @@
 
 namespace App\Services;
 
+use App\Models\Baseline;
+use App\Models\BaselineItem;
+use App\Models\Kickoff;
+use App\Models\MomKickoff;
+use App\Models\Project;
+use App\Models\ProjectPlan;
+
 /**
- * Seed data source from data/seed.json (stateless/no database).
- * In production, this service queries the project database tables.
+ * Data provider for cross-service OpenAPI endpoints.
+ * Prioritizes querying MySQL database via Eloquent, with graceful fallback to seed JSON.
  */
 class ProjectData
 {
@@ -25,12 +32,41 @@ class ProjectData
 
     public function exists(string $projectId): bool
     {
-        return in_array($projectId, $this->data['knownProjects'], true);
+        try {
+            if (Project::where('project_id', $projectId)->exists()) {
+                return true;
+            }
+        } catch (\Throwable) {
+            // Database not reachable or unmigrated; proceed with JSON fallback
+        }
+
+        return in_array($projectId, $this->data['knownProjects'] ?? [], true);
     }
 
     /** Returns project execution readiness status. */
     public function executionReadiness(string $projectId): array
     {
+        try {
+            $kickoff = Kickoff::where('project_id', $projectId)->latest('kickoff_id')->first();
+            $projectExists = Project::where('project_id', $projectId)->exists();
+
+            if ($kickoff || $projectExists) {
+                $mom = $kickoff ? MomKickoff::where('kickoff_id', $kickoff->kickoff_id)->latest('mom_id')->first() : null;
+                $done = $mom !== null && $mom->status === 'COMPLETED';
+
+                return [
+                    'projectId' => $projectId,
+                    'kickoffId' => $kickoff ? (string) $kickoff->kickoff_id : null,
+                    'momId' => $mom ? (string) $mom->mom_id : null,
+                    'status' => $mom->status ?? null,
+                    'completedAt' => $done && $mom->completed_at ? $mom->completed_at->setTimezone('Asia/Jakarta')->format('Y-m-d\TH:i:sP') : null,
+                    'readyForExecution' => $done,
+                ];
+            }
+        } catch (\Throwable) {
+            // Database not reachable; proceed with JSON fallback
+        }
+
         $kickoff = $this->last($this->data['kickoffs'], fn ($k) => $k['projectId'] === $projectId);
         $mom = $kickoff
             ? $this->last($this->data['moms'], fn ($m) => $m['kickoffId'] === $kickoff['id'])
@@ -50,6 +86,42 @@ class ProjectData
     /** Returns latest APPROVED baseline and project plan references; DRAFT baselines are excluded. */
     public function planningReferences(string $projectId): array
     {
+        try {
+            $baseline = Baseline::where('project_id', $projectId)
+                ->where('status', 'APPROVED')
+                ->orderByDesc('version')
+                ->first();
+
+            $plan = ProjectPlan::where('project_id', $projectId)->latest('plan_id')->first();
+            $projectExists = Project::where('project_id', $projectId)->exists();
+
+            if ($baseline || $plan || $projectExists) {
+                $items = [];
+                if ($baseline) {
+                    $dbItems = BaselineItem::where('baseline_id', $baseline->baseline_id)->get();
+                    foreach ($dbItems as $item) {
+                        $items[] = [
+                            'baselineItemId' => $item->baseline_item_id,
+                            'name' => $item->name,
+                            'type' => $item->type,
+                        ];
+                    }
+                }
+
+                return [
+                    'projectId' => $projectId,
+                    'baselineId' => $baseline ? (string) $baseline->baseline_id : null,
+                    'baselineVersion' => $baseline->version ?? null,
+                    'approvedAt' => $baseline && $baseline->approved_at ? $baseline->approved_at->setTimezone('Asia/Jakarta')->format('Y-m-d\TH:i:sP') : null,
+                    'planId' => $plan ? (string) $plan->plan_id : null,
+                    'baselineItems' => $items,
+                    'targetProgress' => $plan->target_progress ?? [],
+                ];
+            }
+        } catch (\Throwable) {
+            // Database not reachable; proceed with JSON fallback
+        }
+
         $approved = array_filter(
             $this->data['baselines'],
             fn ($b) => $b['projectId'] === $projectId && $b['status'] === 'APPROVED'

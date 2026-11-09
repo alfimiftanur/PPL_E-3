@@ -2,11 +2,15 @@
 
 namespace App\Services;
 
+use App\Models\Baseline;
+use App\Models\BaselineMatrixRow;
+use App\Models\InitialAnalysis;
+use App\Models\ProjectPlan;
 use Carbon\Carbon;
 
 /**
- * Manages dummy project planning state for the web UI and internal API endpoints.
- * Keeps data/seed.json untouched so OpenAPI contract tests remain deterministic.
+ * Manages project planning state for the web UI and internal workflow.
+ * Synchronizes state with MySQL database tables while maintaining runtime JSON cache.
  */
 class ProjectWorkflowService
 {
@@ -78,6 +82,22 @@ class ProjectWorkflowService
 
         $this->persist($state);
 
+        try {
+            InitialAnalysis::updateOrCreate(
+                ['project_id' => $projectId],
+                [
+                    'project_need' => $projectNeed,
+                    'project_condition' => $projectCondition,
+                    'status' => 'Tersimpan',
+                    'is_saved' => true,
+                    'created_by' => $state['initialAnalysis']['createdBy'] ?? self::DEFAULT_PM_USER_ID,
+                    'updated_by' => self::DEFAULT_PM_USER_ID,
+                ]
+            );
+        } catch (\Throwable) {
+            // Silently continue if database is currently offline
+        }
+
         return $state['initialAnalysis'];
     }
 
@@ -100,6 +120,19 @@ class ProjectWorkflowService
         ];
 
         $this->persist($state);
+
+        try {
+            InitialAnalysis::where('project_id', $projectId)->update([
+                'project_need' => '',
+                'project_condition' => '',
+                'status' => 'Belum dicatat',
+                'is_saved' => false,
+                'created_by' => null,
+                'updated_by' => null,
+            ]);
+        } catch (\Throwable) {
+            // Silently continue if database is currently offline
+        }
 
         return $state['initialAnalysis'];
     }
@@ -134,6 +167,51 @@ class ProjectWorkflowService
         $state['baseline']['simulatorMode'] = 1;
 
         $this->persist($state);
+
+        try {
+            $projectId = (string) ($state['project']['projectId'] ?? self::DEFAULT_PROJECT_ID);
+            $version = (int) ($state['baseline']['version'] ?? 1);
+
+            $b = Baseline::where('project_id', $projectId)->where('version', $version)->first();
+            if (! $b) {
+                $b = Baseline::create([
+                    'project_id' => $projectId,
+                    'version' => $version,
+                    'baseline_date' => Carbon::now('Asia/Jakarta')->format('Y-m-d'),
+                    'status' => 'DRAFT',
+                    'simulator_mode' => 1,
+                    'is_complete' => true,
+                    'created_by' => self::DEFAULT_PM_USER_ID,
+                ]);
+            } else {
+                $b->update([
+                    'status' => 'DRAFT',
+                    'simulator_mode' => 1,
+                    'is_complete' => true,
+                    'baseline_date' => Carbon::now('Asia/Jakarta')->format('Y-m-d'),
+                ]);
+            }
+
+            BaselineMatrixRow::where('baseline_id', $b->baseline_id)->delete();
+            foreach (['scope', 'deliverable', 'timeline'] as $type) {
+                if (! empty($matrices[$type])) {
+                    foreach ($matrices[$type] as $row) {
+                        BaselineMatrixRow::create([
+                            'baseline_id' => $b->baseline_id,
+                            'baseline_item_id' => $row['code'] ?? null,
+                            'matrix_type' => $type,
+                            'module' => $row['module'] ?? '',
+                            'description' => $row['description'] ?? null,
+                            'start_date' => $row['startDate'] ?? null,
+                            'end_date' => $row['endDate'] ?? null,
+                            'pic_role' => $row['picRole'] ?? 'TL',
+                        ]);
+                    }
+                }
+            }
+        } catch (\Throwable) {
+            // Silently continue if database is currently offline
+        }
 
         return $state['baseline'];
     }
@@ -177,6 +255,20 @@ class ProjectWorkflowService
 
         $this->persist($state);
 
+        try {
+            $projectId = (string) ($state['project']['projectId'] ?? self::DEFAULT_PROJECT_ID);
+            ProjectPlan::updateOrCreate(
+                ['project_id' => $projectId],
+                [
+                    'planned_date' => $parsed->format('Y-m-d'),
+                    'due_date_h1' => $h1->format('Y-m-d'),
+                    'updated_by' => self::DEFAULT_PM_USER_ID,
+                ]
+            );
+        } catch (\Throwable) {
+            // Silently continue if database is currently offline
+        }
+
         return $state['projectPlan'];
     }
 
@@ -216,6 +308,22 @@ class ProjectWorkflowService
         }
 
         $this->persist($state);
+
+        try {
+            $projectId = (string) ($state['project']['projectId'] ?? self::DEFAULT_PROJECT_ID);
+            $b = Baseline::where('project_id', $projectId)->orderByDesc('version')->first();
+            if ($b) {
+                $b->update([
+                    'simulator_mode' => $mode,
+                    'status' => $state['baseline']['status'],
+                    'is_complete' => $state['baseline']['isComplete'],
+                    'approved_by' => $state['baseline']['approvedBy'],
+                    'approved_at' => $state['baseline']['status'] === 'APPROVED' ? Carbon::now('Asia/Jakarta') : null,
+                ]);
+            }
+        } catch (\Throwable) {
+            // Silently continue if database is currently offline
+        }
 
         return $state['baseline'];
     }
