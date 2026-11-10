@@ -9,10 +9,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('baseline_items', function (Blueprint $table) {
-            $table->id();
+            $table->string('baseline_item_id', 64)->primary();
             $table->unsignedBigInteger('baseline_id');
             $table->uuid('project_id');
-            $table->string('baseline_item_id', 64);
             $table->string('name', 255);
             $table->enum('type', ['SCOPE', 'TIMELINE'])->default('SCOPE');
             $table->timestamps();

@@ -9,10 +9,16 @@ class BaselineItem extends Model
 {
     protected $table = 'baseline_items';
 
+    protected $primaryKey = 'baseline_item_id';
+
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
     protected $fillable = [
+        'baseline_item_id',
         'baseline_id',
         'project_id',
-        'baseline_item_id',
         'name',
         'type',
     ];
