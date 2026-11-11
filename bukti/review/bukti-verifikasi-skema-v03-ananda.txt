@@ -1,0 +1,119 @@
+CATATAN BUKTI PERANCANGAN DAN VERIFIKASI SKEMA DATA E-3 V0.3
+Nama      : Ananda Rizky Maulana
+Kelompok  : E-3 / Kelas E
+Acuan     : Dokumen 03, Skema Data Awal E-3 v0.3 (10 November 2026)
+Source    : Arsip PPL_E-3-dev.zip dan checkout repositori dev
+Tanggal   : 11 November 2026
+HEAD kode : 0acbab92d39fa0afdff242ae9d772db67198007d
+PHP       : 8.4.14
+
+PEMBAGIAN TUGAS
+- Perancangan skema data dan Dokumen 03 v0.1-v0.3: Ananda.
+- Implementasi migration, model, dan kode Laravel: Aufa.
+- Review hasil pekerjaan tim: Alfi (PM).
+
+V3-01 - Struktur tabel dan entitas
+  SESUAI secara pemeriksaan berkas. Ada 10 entitas utama dan Item Baseline
+  untuk kebutuhan E-5. Migration tabel terkait tersedia pada source.
+V3-02 - Primary key Item Baseline
+  SESUAI. baseline_item_id menjadi PK string(64), bukan id auto increment.
+  Model BaselineItem memakai PK string, tanpa incrementing.
+V3-03 - Referensi proyek
+  SESUAI. baseline_items masih memiliki FK baseline_id dan project_id.
+  Penghapusan project_id belum menjadi perubahan implementasi.
+V3-04 - Kode Baris Matriks
+  SESUAI KETERANGAN DOKUMEN. baseline_matrix_rows.baseline_item_id hanya
+  kode opsional, bukan FK ke baseline_items. Contoh bisa berbeda dengan UUID E-5.
+V3-05 - Target Progress E-5
+  SESUAI. project_plans.target_progress bertipe JSON; model memakai cast array;
+  seeder dan pemetaan respons API mendukungnya.
+V3-06 - Pengujian kontrak API E-5
+  LULUS: test_api02_memuat_baseline_items_dan_target_progress_untuk_e5
+  termasuk dalam suite kontrak API yang sudah dijalankan.
+  Pembacaan service MySQL: 4 item baseline dan 5 target progres cocok
+  dengan database; alur tulis end-to-end belum diuji.
+V3-07 - Aturan Baseline APPROVED
+  RANCANGAN DISETUJUI TIM, BELUM DIIMPLEMENTASIKAN:
+  DRAFT boleh diubah, APPROVED terkunci, revisi dibuat sebagai versi baru.
+  saveBaseline() masih menimpa versi aktif; setSimulatorMode() masih dapat
+  mengubah status dan metadata persetujuan.
+V3-08 - Akun F-1 / penyimpanan
+  accountId adalah identitas resmi; audit masih memakai ID mock.
+  Test Laravel dikonfigurasi SQLite in-memory, bukan uji MySQL nyata.
+
+HASIL PEMERIKSAAN YANG BENAR-BENAR DIJALANKAN DI ARSIP
+- Pemeriksaan statis: 13 dari 13 kriteria sesuai.
+- php -l pada 10 berkas PHP terkait: tidak ada kesalahan sintaks.
+- Bukti output: bukti/review/pendukung-ananda-v03/hasil-pemeriksaan-statis-v03.txt.
+
+HASIL PEMERIKSAAN LANJUTAN PADA CHECKOUT REPOSITORI
+- ApiContractTest dan ProjectWorkflowTest: 20 tes lulus, 132 assertions;
+  exit code 0. Rincian: 11 tes API (termasuk E-5) dan 9 tes workflow.
+- Perintah: php artisan test --filter="ApiContractTest|ProjectWorkflowTest"
+  --do-not-cache-result --no-ansi; dikonfirmasi juga melalui runner PHPUnit
+  langsung dengan filter sama dan ekstensi SQLite aktif.
+- PHPUnit menggunakan SQLite in-memory sesuai phpunit.xml. Suite tidak
+  menjalankan migration/seeder; layanan dapat fallback ke fixture JSON.
+- MySQL 8.4.13, database ppl_e3: baseline_item_id menjadi PK tunggal
+  varchar(64), tanpa kolom id; FK baseline_id dan project_id sesuai.
+- baseline_matrix_rows.baseline_item_id belum memiliki FK ke baseline_items.
+- project_plans.target_progress: JSON nullable.
+- Seluruh 14 migration lokal tercatat; tidak ada migration tertunda.
+- Pembacaan ProjectData::planningReferences(): baselineId, planId,
+  rincian 4 item baseline dan 5 target progres cocok dengan database;
+  query log mencatat 4 kueri MySQL berhasil selama pembacaan service.
+- Pemeriksaan MySQL memakai kueri baca saja dalam transaksi read-only.
+  Tidak menjalankan ulang migration/seeder atau mengubah data aplikasi.
+- State JSON dikembalikan ke kondisi sebelum tes. Hasil dicatat langsung
+  dalam dokumen yang sudah ada tanpa membuat berkas keluaran tambahan.
+
+UJI MIGRATION DAN SEEDER DARI DATABASE KOSONG
+- Waktu: 11 November 2026, 15:46:39-15:46:41 WIB.
+- PHP 8.4.14; MySQL 8.0.30.
+- Database uji baru: ppl_e3_migration_test_20261111_154639.
+- Kondisi awal: 0 tabel. Database aplikasi ppl_e3 dan .env tidak diubah.
+- Perintah melalui Artisan: migrate:fresh --database=mysql --seed --force
+  --no-interaction. Hasil: 14/14 migration selesai; seeder selesai;
+  exit code 0; tidak ada migration tertunda.
+- Jumlah data sesuai seed: projects 5; initial_analyses 1; baselines 5;
+  baseline_items 4; baseline_matrix_rows 15; project_plans 5; kickoffs 5;
+  mom_kickoffs 5; resource_matrices 5; raci_templates 23.
+- technical_plans, kickoff_approvals, sessions: 0 masing-masing;
+  tabel-tabel tersebut belum diisi oleh seeder.
+- PK baseline_item_id dan JSON target_progress sesuai. Tidak ada item
+  baseline yang merujuk baseline atau proyek yang tidak ada.
+- Pembacaan service E-5 untuk proyek contoh: baseline 301, plan 401,
+  4 item dan 5 target progres; 4 kueri MySQL berhasil.
+
+TEMUAN KONSISTENSI DATA SEED
+- Empat project plan berbeda dari fixture data/seed.json karena baseline_id
+  selalu 301: plan 402 seharusnya 302, plan 403 seharusnya 303, plan 404 dan
+  405 seharusnya 304. Keempatnya merujuk baseline milik proyek berbeda.
+- Empat kickoff merujuk plan milik proyek berbeda karena plan_id selalu 401.
+- Empat baseline merujuk analisis milik proyek berbeda karena analysis_id
+  selalu 1, sedangkan hanya ada satu analisis untuk satu proyek.
+- FK menerima ID yang ada, tetapi pemilik proyek belum konsisten.
+- Status: MIGRATION DAN EKSEKUSI SEEDER LULUS; KONSISTENSI RELASI DATA SEED
+  BELUM LULUS. Seeder belum diubah; perlu diperbaiki lalu diuji kembali.
+- Database uji dipertahankan untuk pemeriksaan hasil. Tidak membuat berkas
+  hasil uji terpisah.
+
+YANG BELUM TERCAKUP
+- Perbaikan dan pengujian kembali konsistensi relasi seeder antarproyek.
+- Pengujian tulis workflow aplikasi ke MySQL secara end-to-end.
+- Pemanggilan HTTP layanan antarkelompok dalam sesi ini.
+- Penolakan perubahan baseline APPROVED dan pembuatan revisi versi baru;
+  implementasi penguncian belum selesai.
+- Pencocokan seluruh atribut dengan Dokumen 03 v0.3 asli dan verifikasi
+  dokumen asesmen; berkas acuan asli tidak tersedia pada repo yang diperiksa.
+- Konfirmasi perubahan istilah akunId (bukti v0.2) menjadi accountId (v0.3)
+  terhadap kontrak F-1 terbaru, serta review hasil oleh Alfi.
+
+CATATAN UNTUK ASESMEN
+Checkout dev saat ini sudah memuat merge migrasi MySQL pada commit 0acbab9.
+Keterangan laporan yang masih menyebut belum merge perlu disesuaikan dengan
+versi kode yang digunakan. HEAD di atas adalah hash sumber aplikasi yang
+diuji, bukan commit penambahan bukti v0.3.
+
+Bukti v0.2 tetap ada pada hasil-verifikasi-skema-ananda.md dan file
+pendukung lama. File ini hanya melengkapi pekerjaan v0.3.

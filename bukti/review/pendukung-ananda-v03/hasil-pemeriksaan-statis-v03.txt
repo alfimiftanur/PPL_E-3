@@ -1,0 +1,33 @@
+S-01  SESUAI baseline_items memakai baseline_item_id sebagai PK string(64)
+S-02  SESUAI migration awal baseline_items tidak membuat kolom id
+S-03  SESUAI baseline_items memiliki FK baseline_id dan project_id
+S-04  SESUAI baseline_items membatasi type SCOPE/TIMELINE
+S-05  SESUAI model BaselineItem memakai PK non-incrementing bertipe string
+S-06  SESUAI baseline_matrix_rows.baseline_item_id nullable, bukan FK ke baseline_items
+S-07  SESUAI project_plans.target_progress bertipe JSON nullable
+S-08  SESUAI model ProjectPlan melakukan cast target_progress ke array
+S-09  SESUAI seeder mengisi baseline_item_id dan target_progress
+S-10  SESUAI planning-references memilih baseline berstatus APPROVED
+S-11  SESUAI planning-references memuat baselineItems dan targetProgress
+S-12  SESUAI pengujian kontrak E-5 tersedia dalam source
+S-13  SESUAI konfigurasi unit test memakai SQLite in-memory
+TOTAL: 13/13 pemeriksaan statis sesuai.
+CATATAN: Verifikasi ini hanya membaca source code, bukan menjalankan migration, endpoint, atau test Laravel.
+CATATAN: Keputusan penguncian APPROVED belum bisa dinyatakan terimplementasi; periksa saveBaseline()/setSimulatorMode().
+
+PEMERIKSAAN SINTAKS PHP (php -l)
+database/migrations/2026_11_09_000004_create_baseline_items_table.php: No syntax errors detected in database/migrations/2026_11_09_000004_create_baseline_items_table.php
+database/migrations/2026_11_09_000005_create_baseline_matrix_rows_table.php: No syntax errors detected in database/migrations/2026_11_09_000005_create_baseline_matrix_rows_table.php
+database/migrations/2026_11_09_000006_create_project_plans_table.php: No syntax errors detected in database/migrations/2026_11_09_000006_create_project_plans_table.php
+database/migrations/2026_11_10_155000_make_baseline_item_id_primary_key_on_baseline_items_table.php: No syntax errors detected in database/migrations/2026_11_10_155000_make_baseline_item_id_primary_key_on_baseline_items_table.php
+app/Models/BaselineItem.php: No syntax errors detected in app/Models/BaselineItem.php
+app/Models/ProjectPlan.php: No syntax errors detected in app/Models/ProjectPlan.php
+app/Services/ProjectData.php: No syntax errors detected in app/Services/ProjectData.php
+app/Services/ProjectWorkflowService.php: No syntax errors detected in app/Services/ProjectWorkflowService.php
+database/seeders/DatabaseSeeder.php: No syntax errors detected in database/seeders/DatabaseSeeder.php
+tests/Feature/ApiContractTest.php: No syntax errors detected in tests/Feature/ApiContractTest.php
+
+PHP CLI untuk audit: 8.4.24
+php artisan test: TIDAK DIJALANKAN pada lingkungan pemeriksaan ini (vendor/autoload.php tidak tersedia).
+MySQL migration/seeder runtime: TIDAK DIJALANKAN (tidak ada server/data MySQL dalam unggahan).
+Commit/Git HEAD: TIDAK DAPAT DIPASTIKAN dari ZIP (tanpa .git).
